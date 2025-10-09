@@ -44,6 +44,9 @@ jobs:
           name: webgl-build
           path: build
   deploy:
+    permissions:
+      id-token: write
+      pages: write
     name: Deployment
     environment:
       name: github-pages
