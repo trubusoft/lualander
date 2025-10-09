@@ -1,9 +1,9 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Lander : MonoBehaviour {
     private const float ThrustSpeed = 5f;
+    private const float TorqueSpeed = 0.8f;
 
     private Rigidbody2D _rigidbody2D;
 
@@ -13,6 +13,8 @@ public class Lander : MonoBehaviour {
 
     private void FixedUpdate() {
         HandleUpwardThrust();
+        HandleLeftRotation();
+        HandleRightRotation();
     }
 
     private void HandleUpwardThrust() {
@@ -22,10 +24,14 @@ public class Lander : MonoBehaviour {
     }
     
     private void HandleLeftRotation() {
-        throw new NotImplementedException();
+        if (Keyboard.current.leftArrowKey.isPressed) {
+            _rigidbody2D.AddTorque(TorqueSpeed);
+        }
     }
 
     private void HandleRightRotation() {
-        throw new NotImplementedException();
+        if (Keyboard.current.rightArrowKey.isPressed) {
+            _rigidbody2D.AddTorque(-TorqueSpeed);
+        }
     }
 }
