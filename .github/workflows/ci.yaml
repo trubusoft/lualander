@@ -1,11 +1,9 @@
 ﻿name: Unity
 
 on:
-#  push:
-#    branches:
-#      - main
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
   # todo: remove this after fix
   pull_request:
     branches:
