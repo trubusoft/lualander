@@ -20,14 +20,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Cache Unity Library
-        uses: actions/cache@v3
-        with:
-          path: Library
-          key: Library-${{ github.event.repository.name }}-WebGL
-          restore-keys: |
-            Library-${{ github.event.repository.name }}"-
-            Library-
+#      - name: Cache Unity Library
+#        uses: actions/cache@v3
+#        with:
+#          path: Library
+#          key: Library-${{ github.event.repository.name }}-WebGL
+#          restore-keys: |
+#            Library-${{ github.event.repository.name }}"-
+#            Library-
       - name: Build as WebGL
         uses: game-ci/unity-builder@v4
         env:
