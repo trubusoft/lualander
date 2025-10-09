@@ -24,9 +24,10 @@ jobs:
         uses: actions/cache@v3
         with:
           path: Library
-          key: ${{ runner.os }}-unity-library-${{ hashFiles('Assets/**', 'ProjectSettings/**') }}
+          key: Library-${{ github.event.repository.name }}"-WebGL
           restore-keys: |
-            ${{ runner.os }}-unity-library-
+            Library-${{ github.event.repository.name }}"-
+            Library-
       - name: Build as WebGL
         uses: game-ci/unity-builder@v4
         env:
