@@ -627,6 +627,7 @@ GameObject:
   - component: {fileID: 935528052}
   - component: {fileID: 935528053}
   - component: {fileID: 935528054}
+  - component: {fileID: 935528055}
   m_Layer: 0
   m_Name: Lander
   m_TagString: Untagged
@@ -665,7 +666,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -723,6 +724,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.1525319, y: 1.6705363}
   m_EdgeRadius: 0
+--- !u!114 &935528055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935528051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e57168acf282d4089c2d657ce42a84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Lander
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
