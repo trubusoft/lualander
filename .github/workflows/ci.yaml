@@ -1,4 +1,4 @@
-﻿name: Unity WebGL Build & Deploy to Github Pages
+﻿name: Unity
 
 on:
 #  push:
@@ -13,11 +13,11 @@ on:
 
 jobs:
   build:
+    name: WebGL Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Cache Unity Library
         uses: actions/cache@v3
         with:
@@ -25,8 +25,7 @@ jobs:
           key: ${{ runner.os }}-unity-library-${{ hashFiles('Assets/**', 'ProjectSettings/**') }}
           restore-keys: |
             ${{ runner.os }}-unity-library-
-          
-      - name: Build Unity Project with WebGL platform
+      - name: Build project as WebGL
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -35,7 +34,6 @@ jobs:
         with:
           unityVersion: auto # honor ProjectSettings/ProjectVersion.txt
           targetPlatform: WebGL
-
       - name: Upload build result as artifact
         id: deployment
         uses: actions/upload-pages-artifact@v3
@@ -43,6 +41,7 @@ jobs:
           name: webgl-build
           path: Build
   deploy:
+    name: Deployment
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
