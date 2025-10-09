@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           name: webgl-build
-          path: Build
+          path: build
   deploy:
     name: Deployment
     environment:
