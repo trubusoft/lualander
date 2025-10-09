@@ -24,7 +24,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: Library
-          key: Library-${{ github.event.repository.name }}"-WebGL
+          key: Library-${{ github.event.repository.name }}-WebGL
           restore-keys: |
             Library-${{ github.event.repository.name }}"-
             Library-
