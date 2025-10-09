@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+  # alternatively: to build on every release
+  # release:
+  #   types: [published]
+
   # todo: remove this after fix
   pull_request:
     branches:
