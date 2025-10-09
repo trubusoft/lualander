@@ -22,7 +22,7 @@ public class Lander : MonoBehaviour {
             _rigidbody2D.AddForce(transform.up * (ThrustSpeed * Time.deltaTime), ForceMode2D.Force);
         }
     }
-    
+
     private void HandleLeftRotation() {
         if (Keyboard.current.leftArrowKey.isPressed) {
             _rigidbody2D.AddTorque(TorqueSpeed * Time.deltaTime);
