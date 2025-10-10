@@ -57,7 +57,7 @@ jobs:
           targetPlatform: WebGL
       - name: Check build result
         run: |
-          apt install -y tree
+          sudo apt install -y tree
           tree build
       - name: Upload build result as artifact pages
         id: deployment
