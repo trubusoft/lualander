@@ -55,20 +55,13 @@ jobs:
           # auto will honor Unity version specified at ProjectSettings/ProjectVersion.txt
           unityVersion: auto
           targetPlatform: WebGL
-      - name: Move overly deep build result to /build root
-        run: |
-          ls build/WebGL/WebGL/
-          mv build/WebGL/WebGL/* build/
-          ls build
-          rmdir build/WebGL/WebGL
-          rmdir build/WebGL
-      - name: Upload /build as artifact pages
+      - name: Upload "build/WebGL/WebGL/" as artifact pages
         id: deployment
         uses: actions/upload-pages-artifact@v3
         with:
           # name needs to be letter lock or it won't work
           name: github-pages
-          path: build
+          path: build/WebGL/WebGL/
   deploy:
     name: Deployment
     environment:
