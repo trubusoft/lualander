@@ -20,15 +20,26 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-# todo: cache step is working, but result in no disk space left.
-#      - name: Cache Unity Library
-#        uses: actions/cache@v3
-#        with:
-#          path: Library
-#          key: Library-${{ github.event.repository.name }}-WebGL
-#          restore-keys: |
-#            Library-${{ github.event.repository.name }}"-
-#            Library-
+      - name: Cache Unity Library
+        uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-${{ github.event.repository.name }}-WebGL
+          restore-keys: |
+            Library-${{ github.event.repository.name }}"-
+            Library-
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          # this might remove tools that are actually needed if set to "true" but frees about 6 GB
+          tool-cache: false
+          # all of these default to true, but feel free to set to "false" if necessary for your workflow
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
       - name: Build as WebGL
         uses: game-ci/unity-builder@v4
         env:
