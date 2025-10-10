@@ -33,7 +33,16 @@ public class Lander : MonoBehaviour {
     }
 
     private void CalculateScore() {
-        Debug.Log("CalculateScore");
+        const float maxAngleScore = 100;
+        const float scoreMultiplier = 10f;
+        float angleScore = maxAngleScore -
+                           Mathf.Abs(_landingAngle - 1f) * scoreMultiplier * maxAngleScore;
+
+        const float maxSpeedScore = 100;
+        float speedScore = (SpeedThreshold - _landingSpeed) * maxSpeedScore;
+
+        Debug.Log(speedScore);
+        Debug.Log(angleScore);
     }
 
     private bool IsCollidedWithLandingPad() {
