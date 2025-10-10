@@ -45,7 +45,7 @@ jobs:
           large-packages: true
           docker-images: true
           swap-storage: true
-      - name: Build Unity Project to /build
+      - name: Build Unity Project
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -55,7 +55,11 @@ jobs:
           # auto will honor Unity version specified at ProjectSettings/ProjectVersion.txt
           unityVersion: auto
           targetPlatform: WebGL
-      - name: Upload "build/WebGL/WebGL/" as artifact pages
+      - name: Check build result
+        run: |
+          apt install -y tree
+          tree build
+      - name: Upload build result as artifact pages
         id: deployment
         uses: actions/upload-pages-artifact@v3
         with:
