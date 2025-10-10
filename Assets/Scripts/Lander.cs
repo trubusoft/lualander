@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
 public class Lander : MonoBehaviour {
@@ -6,6 +7,7 @@ public class Lander : MonoBehaviour {
     private const float TorqueSpeed = 300f;
     private const float SoftLandingThreshold = 4f;
     private const float StraightLandingThreshold = 0.9f;
+    private Collision2D _collision2D;
     private float _landingMagnitude;
     private float _landingStraightness;
     private Rigidbody2D _rigidbody2D;
@@ -21,25 +23,22 @@ public class Lander : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (IsCollidedWithLandingPad(collision)) {
-            Debug.Log("Collided with Landing Pad");
+        _collision2D = collision;
 
-            if (IsSoftLanding(collision)) {
-                Debug.Log("Soft Landing");
-            } else {
-                Debug.Log("Hard landing");
-            }
-
-            if (IsStraightLanding()) {
-                Debug.Log("Straight Landing");
-            } else {
-                Debug.Log("Steep Landing");
+        if (IsCollidedWithLandingPad()) {
+            if (IsSoftLanding() && IsStraightLanding()) {
+                CalculateScore();
             }
         }
     }
 
-    private static bool IsCollidedWithLandingPad(Collision2D other) {
-        var isFound = other.gameObject.TryGetComponent(out LandingPad _);
+    private void CalculateScore() {
+        Debug.Log("CalculateScore");
+    }
+
+    private bool IsCollidedWithLandingPad() {
+        Assert.IsNotNull(_collision2D);
+        var isFound = _collision2D.gameObject.TryGetComponent(out LandingPad _);
         return isFound;
     }
 
@@ -61,8 +60,9 @@ public class Lander : MonoBehaviour {
         }
     }
 
-    private bool IsSoftLanding(Collision2D collision) {
-        var relativeVelocity = collision.relativeVelocity;
+    private bool IsSoftLanding() {
+        Assert.IsNotNull(_collision2D);
+        var relativeVelocity = _collision2D.relativeVelocity;
         _landingMagnitude = relativeVelocity.magnitude;
         return _landingMagnitude < SoftLandingThreshold;
     }
