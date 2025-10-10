@@ -5,11 +5,11 @@ using UnityEngine.InputSystem;
 public class Lander : MonoBehaviour {
     private const float ThrustSpeed = 700f;
     private const float TorqueSpeed = 300f;
-    private const float SoftLandingThreshold = 4f;
-    private const float StraightLandingThreshold = 0.9f;
+    private const float SpeedThreshold = 4f;
+    private const float AngleThreshold = 0.9f;
     private Collision2D _collision2D;
-    private float _landingMagnitude;
-    private float _landingStraightness;
+    private float _landingAngle;
+    private float _landingSpeed;
     private Rigidbody2D _rigidbody2D;
 
     private void Awake() {
@@ -26,7 +26,7 @@ public class Lander : MonoBehaviour {
         _collision2D = collision;
 
         if (IsCollidedWithLandingPad()) {
-            if (IsSoftLanding() && IsStraightLanding()) {
+            if (IsLandingSpeedValid() && IsLandingAngleValid()) {
                 CalculateScore();
             }
         }
@@ -60,15 +60,15 @@ public class Lander : MonoBehaviour {
         }
     }
 
-    private bool IsSoftLanding() {
+    private bool IsLandingSpeedValid() {
         Assert.IsNotNull(_collision2D);
         var relativeVelocity = _collision2D.relativeVelocity;
-        _landingMagnitude = relativeVelocity.magnitude;
-        return _landingMagnitude < SoftLandingThreshold;
+        _landingSpeed = relativeVelocity.magnitude;
+        return _landingSpeed < SpeedThreshold;
     }
 
-    private bool IsStraightLanding() {
-        _landingStraightness = Vector2.Dot(Vector2.up, transform.up);
-        return StraightLandingThreshold <= _landingStraightness;
+    private bool IsLandingAngleValid() {
+        _landingAngle = Vector2.Dot(Vector2.up, transform.up);
+        return AngleThreshold <= _landingAngle;
     }
 }
