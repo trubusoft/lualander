@@ -1,5 +1,7 @@
 Practicing [Code Monkey's Lua Lander](https://youtu.be/nGKd4yTP3M8?si=MLKIuNU28Sjii9XB).
 
-Also in this repo:
-- Working CI/CD pipeline for WebGL deployment under GitHub Pages (see [ci.yaml](.github/workflows/ci.yaml))
-- Relatively organized and linear commit history that might be useful for quick reading
+The repo has relatively organized and linear commit history that might be easy to digest with quick reading.
+
+Working WebGL to GitHub Pages pipeline is also available (see [pages.yaml](.github/workflows/pages.yaml)).
+
+Credit to Hugo for making this wonderful tutorial, and to [game-ci](https://game.ci/) for the great unity builder.
