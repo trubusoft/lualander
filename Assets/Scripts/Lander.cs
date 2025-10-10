@@ -19,17 +19,26 @@ public class Lander : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (IsSoftLanding(collision)) {
-            Debug.Log("Soft Landing");
-        } else {
-            Debug.Log("Hard landing");
-        }
+        if (IsCollidedWithLandingPad(collision)) {
+            Debug.Log("Collided with Landing Pad");
 
-        if (IsStraightLanding()) {
-            Debug.Log("Straight Landing");
-        } else {
-            Debug.Log("Steep Landing");
+            if (IsSoftLanding(collision)) {
+                Debug.Log("Soft Landing");
+            } else {
+                Debug.Log("Hard landing");
+            }
+
+            if (IsStraightLanding()) {
+                Debug.Log("Straight Landing");
+            } else {
+                Debug.Log("Steep Landing");
+            }
         }
+    }
+
+    private static bool IsCollidedWithLandingPad(Collision2D other) {
+        var isFound = other.gameObject.TryGetComponent(out LandingPad _);
+        return isFound;
     }
 
     private void HandleUpwardThrust() {
