@@ -5,10 +5,10 @@ public class LandingPadVisual : MonoBehaviour {
     [SerializeField] private TextMeshPro scoreMultiplierTextMesh;
 
     private void Awake() {
-        UpdateMultiplierText();
+        UpdateScoreMultiplierText();
     }
 
-    private void UpdateMultiplierText() {
+    private void UpdateScoreMultiplierText() {
         LandingPad landingPad = gameObject.GetComponent<LandingPad>();
         scoreMultiplierTextMesh.text = "x" + landingPad.getScoreMultiplier;
     }
