@@ -9,6 +9,7 @@ public class Lander : MonoBehaviour {
     private const float AngleThreshold = 0.9f;
     private Collision2D _collision2D;
     private float _landingAngle;
+    private LandingPad _landingPad;
     private float _landingSpeed;
     private Rigidbody2D _rigidbody2D;
 
@@ -62,12 +63,16 @@ public class Lander : MonoBehaviour {
 
         Debug.Log(speedScore);
         Debug.Log(angleScore);
+
+        float finalScore = (speedScore + angleScore) * _landingPad.getScoreMultiplier;
+        Debug.Log(finalScore);
     }
 
     private bool IsCollidedWithLandingPad() {
         Assert.IsNotNull(_collision2D);
         if (_collision2D.gameObject.TryGetComponent(out LandingPad landingPad)) {
             SetCurrentLandingPad(landingPad);
+            return true;
         }
 
         return false;
