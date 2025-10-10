@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 public class Lander : MonoBehaviour {
     private const float ThrustSpeed = 700f;
     private const float TorqueSpeed = 300f;
-    private const float SoftLandingMagnitude = 4f;
+    private const float SoftLandingThreshold = 4f;
+    private const float StraightLandingThreshold = 0.9f;
     private Rigidbody2D _rigidbody2D;
 
     private void Awake() {
@@ -22,6 +23,12 @@ public class Lander : MonoBehaviour {
             Debug.Log("Soft Landing");
         } else {
             Debug.Log("Hard landing");
+        }
+
+        if (IsStraightLanding()) {
+            Debug.Log("Straight Landing");
+        } else {
+            Debug.Log("Steep Landing");
         }
     }
 
@@ -46,6 +53,11 @@ public class Lander : MonoBehaviour {
     private static bool IsSoftLanding(Collision2D collision) {
         var relativeVelocity = collision.relativeVelocity;
         var magnitude = relativeVelocity.magnitude;
-        return magnitude < SoftLandingMagnitude;
+        return magnitude < SoftLandingThreshold;
+    }
+
+    private bool IsStraightLanding() {
+        var straightness = Vector2.Dot(Vector2.up, transform.up);
+        return StraightLandingThreshold <= straightness;
     }
 }
