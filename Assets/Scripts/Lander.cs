@@ -26,10 +26,29 @@ public class Lander : MonoBehaviour {
         _collision2D = collision;
 
         if (IsCollidedWithLandingPad()) {
-            if (IsLandingSpeedValid() && IsLandingAngleValid()) {
+            CalculateLandingSpeed();
+            CalculateLandingAngle();
+
+            bool isWinCondition = IsLandingSpeedValid() && IsLandingAngleValid();
+            if (isWinCondition) {
+                Debug.Log("Win");
                 CalculateScore();
+                return;
             }
         }
+
+        Debug.Log("Lose");
+    }
+
+    private void CalculateLandingSpeed() {
+        Assert.IsNotNull(_collision2D);
+        var relativeVelocity = _collision2D.relativeVelocity;
+        _landingSpeed = relativeVelocity.magnitude;
+    }
+
+    private void CalculateLandingAngle() {
+        Assert.IsNotNull(_collision2D);
+        _landingAngle = Vector2.Dot(Vector2.up, transform.up);
     }
 
     private void CalculateScore() {
@@ -70,14 +89,10 @@ public class Lander : MonoBehaviour {
     }
 
     private bool IsLandingSpeedValid() {
-        Assert.IsNotNull(_collision2D);
-        var relativeVelocity = _collision2D.relativeVelocity;
-        _landingSpeed = relativeVelocity.magnitude;
         return _landingSpeed < SpeedThreshold;
     }
 
     private bool IsLandingAngleValid() {
-        _landingAngle = Vector2.Dot(Vector2.up, transform.up);
         return AngleThreshold <= _landingAngle;
     }
 }
