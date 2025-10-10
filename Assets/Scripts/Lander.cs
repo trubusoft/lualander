@@ -66,8 +66,15 @@ public class Lander : MonoBehaviour {
 
     private bool IsCollidedWithLandingPad() {
         Assert.IsNotNull(_collision2D);
-        var isFound = _collision2D.gameObject.TryGetComponent(out LandingPad _);
-        return isFound;
+        if (_collision2D.gameObject.TryGetComponent(out LandingPad landingPad)) {
+            SetCurrentLandingPad(landingPad);
+        }
+
+        return false;
+    }
+
+    private void SetCurrentLandingPad(LandingPad landingPad) {
+        _landingPad = landingPad;
     }
 
     private void HandleUpwardThrust() {
