@@ -44,10 +44,10 @@ jobs:
           name: github-pages
           path: build
   deploy:
+    name: Deployment
     permissions:
       id-token: write
       pages: write
-    name: Deployment
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
