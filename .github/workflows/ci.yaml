@@ -59,6 +59,9 @@ jobs:
           ls build
           mv build/WebGL/WebGL/* build/
           ls build
+          ls build/WebGL/WebGL/
+          rmdir build/WebGL/WebGL
+          rmdir build/WebGL
       - name: Upload pages artifact
         id: deployment
         uses: actions/upload-pages-artifact@v3
