@@ -38,7 +38,7 @@ jobs:
         with:
           unityVersion: auto # honor ProjectSettings/ProjectVersion.txt
           targetPlatform: WebGL
-      - name: Upload build result as artifact
+      - name: Upload pages artifact
         id: deployment
         uses: actions/upload-pages-artifact@v3
         with:
