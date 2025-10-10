@@ -38,6 +38,11 @@ jobs:
         with:
           unityVersion: auto # honor ProjectSettings/ProjectVersion.txt
           targetPlatform: WebGL
+      - name: Move build result to /build root
+        run: |
+          ls build
+          mv build/WebGL/WebGL/* build/
+          ls build
       - name: Upload pages artifact
         id: deployment
         uses: actions/upload-pages-artifact@v3
