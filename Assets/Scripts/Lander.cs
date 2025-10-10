@@ -5,7 +5,6 @@ public class Lander : MonoBehaviour {
     private const float ThrustSpeed = 700f;
     private const float TorqueSpeed = 300f;
     private const float SoftLandingMagnitude = 4f;
-
     private Rigidbody2D _rigidbody2D;
 
     private void Awake() {
