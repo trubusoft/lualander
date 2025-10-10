@@ -1,11 +1,15 @@
+using TMPro;
 using UnityEngine;
 
 public class LandingPadVisual : MonoBehaviour {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start() {
+    [SerializeField] private TextMeshPro scoreMultiplierTextMesh;
+
+    private void Awake() {
+        UpdateMultiplierText();
     }
 
-    // Update is called once per frame
-    void Update() {
+    private void UpdateMultiplierText() {
+        LandingPad landingPad = gameObject.GetComponent<LandingPad>();
+        scoreMultiplierTextMesh.text = "x" + landingPad.getScoreMultiplier;
     }
 }
