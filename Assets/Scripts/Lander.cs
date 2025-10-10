@@ -6,6 +6,8 @@ public class Lander : MonoBehaviour {
     private const float TorqueSpeed = 300f;
     private const float SoftLandingThreshold = 4f;
     private const float StraightLandingThreshold = 0.9f;
+    private float _landingMagnitude;
+    private float _landingStraightness;
     private Rigidbody2D _rigidbody2D;
 
     private void Awake() {
@@ -59,14 +61,14 @@ public class Lander : MonoBehaviour {
         }
     }
 
-    private static bool IsSoftLanding(Collision2D collision) {
+    private bool IsSoftLanding(Collision2D collision) {
         var relativeVelocity = collision.relativeVelocity;
-        var magnitude = relativeVelocity.magnitude;
-        return magnitude < SoftLandingThreshold;
+        _landingMagnitude = relativeVelocity.magnitude;
+        return _landingMagnitude < SoftLandingThreshold;
     }
 
     private bool IsStraightLanding() {
-        var straightness = Vector2.Dot(Vector2.up, transform.up);
-        return StraightLandingThreshold <= straightness;
+        _landingStraightness = Vector2.Dot(Vector2.up, transform.up);
+        return StraightLandingThreshold <= _landingStraightness;
     }
 }
