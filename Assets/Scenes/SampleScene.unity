@@ -189,7 +189,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 67900307044645530, guid: 491bc9f68306cad40a65002e796205eb, type: 3}
       propertyPath: m_Name
-      value: RightThrusterParticleSystem
+      value: RightThruster
       objectReference: {fileID: 0}
     - target: {fileID: 7777506112856376982, guid: 491bc9f68306cad40a65002e796205eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -511,7 +511,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 67900307044645530, guid: 491bc9f68306cad40a65002e796205eb, type: 3}
       propertyPath: m_Name
-      value: LeftThrusterParticleSystem
+      value: LeftThruster
       objectReference: {fileID: 0}
     - target: {fileID: 7777506112856376982, guid: 491bc9f68306cad40a65002e796205eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -562,6 +562,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7777506112856376982, guid: 491bc9f68306cad40a65002e796205eb, type: 3}
   m_PrefabInstance: {fileID: 593045426}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &596457622 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5626142120532356289, guid: 491bc9f68306cad40a65002e796205eb, type: 3}
+  m_PrefabInstance: {fileID: 223887524}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &619394800
 GameObject:
@@ -706,7 +711,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 67900307044645530, guid: 491bc9f68306cad40a65002e796205eb, type: 3}
       propertyPath: m_Name
-      value: MiddleThrusterParticleSystem
+      value: MiddleThruster
       objectReference: {fileID: 0}
     - target: {fileID: 7777506112856376982, guid: 491bc9f68306cad40a65002e796205eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -877,6 +882,7 @@ GameObject:
   - component: {fileID: 935528053}
   - component: {fileID: 935528054}
   - component: {fileID: 935528055}
+  - component: {fileID: 935528056}
   m_Layer: 0
   m_Name: Lander
   m_TagString: Untagged
@@ -988,6 +994,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e57168acf282d4089c2d657ce42a84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lander
+--- !u!114 &935528056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935528051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 942fd69d13b673848b7a4c2599a8f9a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LanderVisual
+  leftThruster: {fileID: 1665379786}
+  middleThruster: {fileID: 1698200292}
+  rightThruster: {fileID: 596457622}
 --- !u!1 &992505612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,6 +1564,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &1665379786 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5626142120532356289, guid: 491bc9f68306cad40a65002e796205eb, type: 3}
+  m_PrefabInstance: {fileID: 593045426}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1698200292 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5626142120532356289, guid: 491bc9f68306cad40a65002e796205eb, type: 3}
+  m_PrefabInstance: {fileID: 854241201}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1561830050441946403
 PrefabInstance:
   m_ObjectHideFlags: 0
