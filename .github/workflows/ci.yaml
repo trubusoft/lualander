@@ -13,6 +13,11 @@ on:
     branches:
       - '*'
 
+permissions:
+  id-token: write
+  contents: write
+  pages: write
+
 jobs:
   build:
     name: WebGL Build
@@ -62,9 +67,6 @@ jobs:
           path: build
   deploy:
     name: Deployment
-    permissions:
-      id-token: write
-      pages: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
