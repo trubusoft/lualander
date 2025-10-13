@@ -19,8 +19,8 @@ public class LandingPadVisual : MonoBehaviour {
     }
 
     private void SetScoreMultiplierText() {
-        int multiplier = _landingPad.getScoreMultiplier;
-        string text = $"x{multiplier}";
+        int scoreMultiplier = _landingPad.GetScoreMultiplier();
+        string text = $"x{scoreMultiplier}";
         scoreMultiplierTextMeshPro.text = text;
     }
 }

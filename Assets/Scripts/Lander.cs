@@ -92,7 +92,7 @@ public class Lander : MonoBehaviour {
         Debug.Log(speedScore);
         Debug.Log(angleScore);
 
-        float finalScore = (speedScore + angleScore) * _landingPad.getScoreMultiplier;
+        float finalScore = (speedScore + angleScore) * _landingPad.GetScoreMultiplier();
         Debug.Log(finalScore);
     }
 
