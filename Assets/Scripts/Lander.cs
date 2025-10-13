@@ -55,7 +55,19 @@ public class Lander : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D other) {
         _collision2D = other;
 
-        if (isCollidedWithLandingPad) {
+        HandleLandingPadCollision();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        _collider2D = other;
+
+        HandleFuelCollision();
+    }
+
+    private void HandleLandingPadCollision() {
+        Assert.IsNotNull(_collision2D);
+        if (_collision2D.gameObject.TryGetComponent(out LandingPad landingPad)) {
+            SetCurrentLandingPad(landingPad);
             CalculateLandingSpeed();
             CalculateLandingAngle();
 
@@ -63,17 +75,8 @@ public class Lander : MonoBehaviour {
             if (isWinCondition) {
                 Debug.Log("Win");
                 CalculateScore();
-                return;
             }
         }
-
-        Debug.Log("Lose");
-    }
-
-    private void OnTriggerEnter2D(Collider2D other) {
-        _collider2D = other;
-
-        HandleFuelCollision();
     }
 
     private void HandleFuelCollision() {
