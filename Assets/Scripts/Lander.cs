@@ -67,7 +67,6 @@ public class Lander : MonoBehaviour {
             // refill fuel
             _fuelAmount += FuelPickupAmount;
             _fuelAmount = Mathf.Clamp(_fuelAmount, 0, float.MaxValue);
-            OnFuelPickup?.Invoke(this, EventArgs.Empty);
             fuel.DestroySelf();
         }
     }
@@ -92,7 +91,7 @@ public class Lander : MonoBehaviour {
     public event EventHandler OnRightForce;
     public event EventHandler OnLeftForce;
     public event EventHandler OnCoinPickup;
-    public event EventHandler OnFuelPickup;
+    public event EventHandler<OnLandingArgs> OnLanding;
 
     private static float CalculateLandingSpeed(Collision2D landingPadCollision) {
         var relativeVelocity = landingPadCollision.relativeVelocity;
@@ -103,18 +102,17 @@ public class Lander : MonoBehaviour {
         return Vector2.Dot(Vector2.up, transform.up);
     }
 
-    private static void CalculateScore(float landingSpeed, float landingAngle, int scoreMultiplier) {
+    private void CalculateScore(float landingSpeed, float landingAngle, int scoreMultiplier) {
         const float maxAngleScore = 100;
-        float angleScore = maxAngleScore - Mathf.Abs(landingAngle - 1f) * 10f * maxAngleScore;
-
         const float maxSpeedScore = 100;
+
+        float angleScore = maxAngleScore - Mathf.Abs(landingAngle - 1f) * 10f * maxAngleScore;
         float speedScore = (SpeedThreshold - landingSpeed) * maxSpeedScore;
 
-        Debug.Log(speedScore);
-        Debug.Log(angleScore);
-
-        float finalScore = (speedScore + angleScore) * scoreMultiplier;
-        Debug.Log(finalScore);
+        int finalScore = (int)(speedScore + angleScore) * scoreMultiplier;
+        OnLanding?.Invoke(this, new OnLandingArgs {
+            Score = finalScore,
+        });
     }
 
     private void HandleIdle() {
@@ -149,5 +147,9 @@ public class Lander : MonoBehaviour {
         }
 
         return false;
+    }
+
+    public class OnLandingArgs : EventArgs {
+        public int Score;
     }
 }
