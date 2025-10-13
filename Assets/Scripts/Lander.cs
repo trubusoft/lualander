@@ -49,6 +49,7 @@ public class Lander : MonoBehaviour {
         _collider2D = other;
 
         HandleFuelCollision();
+        HandleCoinCollision();
     }
 
     private void HandleLandingPadCollision() {
@@ -72,6 +73,14 @@ public class Lander : MonoBehaviour {
             _fuelAmount += FuelPickupAmount;
             _fuelAmount = Mathf.Clamp(_fuelAmount, 0, float.MaxValue);
             fuel.DestroySelf();
+        }
+    }
+
+    private void HandleCoinCollision() {
+        Assert.IsNotNull(_collider2D);
+        if (_collider2D.gameObject.TryGetComponent(out Coin coin)) {
+            // todo: add score
+            coin.DestroySelf();
         }
     }
 
