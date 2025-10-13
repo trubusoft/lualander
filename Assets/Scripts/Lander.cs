@@ -9,7 +9,9 @@ public class Lander : MonoBehaviour {
     private const float SpeedThreshold = 4f;
     private const float AngleThreshold = 0.9f;
     private const float FuelStartingAmount = 10f;
+    private const float FuelPickupAmount = 10f;
     private const float FuelConsumptionRate = 1f;
+    private Collider2D _collider2D;
     private Collision2D _collision2D;
     private float _fuelAmount;
     private float _landingAngle;
@@ -56,12 +58,25 @@ public class Lander : MonoBehaviour {
         Debug.Log("Lose");
     }
 
+    private void OnTriggerEnter2D(Collider2D other) {
+        _collider2D = other;
+
+        if (IsCollidedWithFuel()) {
+            RefillFuel();
+        }
+    }
+
     private void ConsumeFuel() {
         if (0f < _fuelAmount) {
             float consumedFuel = FuelConsumptionRate * Time.deltaTime;
             _fuelAmount -= consumedFuel;
             _fuelAmount = Mathf.Clamp(_fuelAmount, 0, float.MaxValue);
         }
+    }
+
+    private void RefillFuel() {
+        _fuelAmount += FuelPickupAmount;
+        _fuelAmount = Mathf.Clamp(_fuelAmount, 0, float.MaxValue);
     }
 
     public event EventHandler OnIdle;
@@ -104,6 +119,11 @@ public class Lander : MonoBehaviour {
         }
 
         return false;
+    }
+
+    private bool IsCollidedWithFuel() {
+        Assert.IsNotNull(_collider2D);
+        return _collider2D.gameObject.TryGetComponent(out Fuel _);
     }
 
     private void SetCurrentLandingPad(LandingPad landingPad) {
