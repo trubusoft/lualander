@@ -15,7 +15,6 @@ public class Lander : MonoBehaviour {
     private Collision2D _collision2D;
     private float _fuelAmount;
     private float _landingAngle;
-    private LandingPad _landingPad;
     private float _landingSpeed;
     private Rigidbody2D _rigidbody2D;
 
@@ -55,14 +54,13 @@ public class Lander : MonoBehaviour {
     private void HandleLandingPadCollision() {
         Assert.IsNotNull(_collision2D);
         if (_collision2D.gameObject.TryGetComponent(out LandingPad landingPad)) {
-            SetCurrentLandingPad(landingPad);
             CalculateLandingSpeed();
             CalculateLandingAngle();
 
             bool isWinCondition = IsLandingSpeedValid() && IsLandingAngleValid();
             if (isWinCondition) {
                 Debug.Log("Win");
-                CalculateScore();
+                CalculateScore(landingPad);
             }
         }
     }
@@ -101,7 +99,7 @@ public class Lander : MonoBehaviour {
         _landingAngle = Vector2.Dot(Vector2.up, transform.up);
     }
 
-    private void CalculateScore() {
+    private void CalculateScore(LandingPad landingPad) {
         const float maxAngleScore = 100;
         const float scoreMultiplier = 10f;
         float angleScore = maxAngleScore -
@@ -113,12 +111,8 @@ public class Lander : MonoBehaviour {
         Debug.Log(speedScore);
         Debug.Log(angleScore);
 
-        float finalScore = (speedScore + angleScore) * _landingPad.GetScoreMultiplier();
+        float finalScore = (speedScore + angleScore) * landingPad.GetScoreMultiplier();
         Debug.Log(finalScore);
-    }
-
-    private void SetCurrentLandingPad(LandingPad landingPad) {
-        _landingPad = landingPad;
     }
 
     private void HandleIdle() {
