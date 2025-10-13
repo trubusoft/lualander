@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
@@ -18,6 +19,7 @@ public class Lander : MonoBehaviour {
     }
 
     private void FixedUpdate() {
+        HandleIdle();
         HandleUpwardThrust();
         HandleLeftRotation();
         HandleRightRotation();
@@ -40,6 +42,11 @@ public class Lander : MonoBehaviour {
 
         Debug.Log("Lose");
     }
+
+    public event EventHandler OnIdle;
+    public event EventHandler OnUpForce;
+    public event EventHandler OnRightForce;
+    public event EventHandler OnLeftForce;
 
     private void CalculateLandingSpeed() {
         Assert.IsNotNull(_collision2D);
@@ -82,21 +89,28 @@ public class Lander : MonoBehaviour {
         _landingPad = landingPad;
     }
 
+    private void HandleIdle() {
+        OnIdle?.Invoke(this, EventArgs.Empty);
+    }
+
     private void HandleUpwardThrust() {
         if (Keyboard.current.upArrowKey.isPressed) {
             _rigidbody2D.AddForce(transform.up * (ThrustSpeed * Time.deltaTime), ForceMode2D.Force);
+            OnUpForce?.Invoke(this, EventArgs.Empty);
         }
     }
 
     private void HandleLeftRotation() {
         if (Keyboard.current.leftArrowKey.isPressed) {
             _rigidbody2D.AddTorque(TorqueSpeed * Time.deltaTime);
+            OnLeftForce?.Invoke(this, EventArgs.Empty);
         }
     }
 
     private void HandleRightRotation() {
         if (Keyboard.current.rightArrowKey.isPressed) {
             _rigidbody2D.AddTorque(-TorqueSpeed * Time.deltaTime);
+            OnRightForce?.Invoke(this, EventArgs.Empty);
         }
     }
 
