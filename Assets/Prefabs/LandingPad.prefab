@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9799d688210d0d54d82837bceed62469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LandingPadVisual
-  scoreMultiplierTextMesh: {fileID: 9085944867495028949}
+  scoreMultiplierTextMeshPro: {fileID: 9085944867495028949}
 --- !u!1 &5415230356661385755
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 6877778184858799504}
   - component: {fileID: 5562487066486108507}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: ScoreMultiPlierBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 6786029635799342316}
   - component: {fileID: 9085944867495028949}
   m_Layer: 0
-  m_Name: MultiplierText
+  m_Name: ScoreMultiplierText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
