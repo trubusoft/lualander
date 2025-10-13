@@ -1,10 +1,12 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class LandingPadVisual : MonoBehaviour {
     [SerializeField] private TextMeshPro scoreMultiplierTextMesh;
 
     private void Awake() {
+        Assert.IsNotNull(scoreMultiplierTextMesh);
         UpdateScoreMultiplierText();
     }
 
