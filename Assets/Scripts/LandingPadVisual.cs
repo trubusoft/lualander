@@ -11,7 +11,7 @@ public class LandingPadVisual : MonoBehaviour {
     }
 
     private void UpdateScoreMultiplierText() {
-        LandingPad landingPad = gameObject.GetComponent<LandingPad>();
+        LandingPad landingPad = GetComponent<LandingPad>();
         scoreMultiplierTextMesh.text = "x" + landingPad.getScoreMultiplier;
     }
 }
