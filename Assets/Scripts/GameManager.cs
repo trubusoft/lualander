@@ -5,8 +5,8 @@ public class GameManager : MonoBehaviour {
     private int _score;
 
     private void Start() {
-        Lander.Instance.OnCoinPickup += LanderCoinPickup;
-        Lander.Instance.OnLanding += LanderOnLanding;
+        Lander.instance.OnCoinPickup += LanderCoinPickup;
+        Lander.instance.OnLanding += LanderOnLanding;
     }
 
     private void LanderOnLanding(object sender, Lander.OnLandingArgs e) {
