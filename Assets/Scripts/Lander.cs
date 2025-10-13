@@ -33,13 +33,6 @@ public class Lander : MonoBehaviour {
         }
     }
 
-    private bool isCollidedWithFuel {
-        get {
-            Assert.IsNotNull(_collider2D);
-            return _collider2D.gameObject.TryGetComponent(out Fuel _);
-        }
-    }
-
     private void Awake() {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         Assert.IsNotNull(_rigidbody2D);
@@ -80,8 +73,16 @@ public class Lander : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other) {
         _collider2D = other;
 
-        if (isCollidedWithFuel) {
-            RefillFuel();
+        HandleFuelCollision();
+    }
+
+    private void HandleFuelCollision() {
+        Assert.IsNotNull(_collider2D);
+        if (_collider2D.gameObject.TryGetComponent(out Fuel fuel)) {
+            // refill fuel
+            _fuelAmount += FuelPickupAmount;
+            _fuelAmount = Mathf.Clamp(_fuelAmount, 0, float.MaxValue);
+            fuel.DestroySelf();
         }
     }
 
@@ -91,11 +92,6 @@ public class Lander : MonoBehaviour {
             _fuelAmount -= consumedFuel;
             _fuelAmount = Mathf.Clamp(_fuelAmount, 0, float.MaxValue);
         }
-    }
-
-    private void RefillFuel() {
-        _fuelAmount += FuelPickupAmount;
-        _fuelAmount = Mathf.Clamp(_fuelAmount, 0, float.MaxValue);
     }
 
     public event EventHandler OnIdle;
