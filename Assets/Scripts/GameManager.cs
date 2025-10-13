@@ -3,6 +3,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     private int _score;
+    public static GameManager instance { get; private set; }
+
+    private void Awake() {
+        if (instance != null && instance != this) {
+            Destroy(gameObject); // destroy duplicate item
+        } else {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // persist across scenes
+        }
+    }
 
     private void Start() {
         Lander.instance.OnCoinPickup += LanderCoinPickup;
