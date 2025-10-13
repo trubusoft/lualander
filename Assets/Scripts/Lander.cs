@@ -8,21 +8,34 @@ public class Lander : MonoBehaviour {
     private const float TorqueSpeed = 300f;
     private const float SpeedThreshold = 4f;
     private const float AngleThreshold = 0.9f;
+    private const float FuelStartingAmount = 10f;
+    private const float FuelConsumptionRate = 1f;
     private Collision2D _collision2D;
+    private float _fuelAmount;
     private float _landingAngle;
     private LandingPad _landingPad;
     private float _landingSpeed;
     private Rigidbody2D _rigidbody2D;
 
+    private bool isMoveable => 0f < _fuelAmount;
+
     private void Awake() {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        Assert.IsNotNull(_rigidbody2D);
+        _fuelAmount = FuelStartingAmount;
     }
 
     private void FixedUpdate() {
         HandleIdle();
-        HandleUpwardThrust();
-        HandleLeftRotation();
-        HandleRightRotation();
+        Debug.Log(_fuelAmount);
+        if (isMoveable) {
+            bool isGoingUp = HandleUpwardThrust();
+            bool isGoingLeft = HandleLeftRotation();
+            bool isGoingRight = HandleRightRotation();
+            if (isGoingUp || isGoingLeft || isGoingRight) {
+                ConsumeFuel();
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -41,6 +54,14 @@ public class Lander : MonoBehaviour {
         }
 
         Debug.Log("Lose");
+    }
+
+    private void ConsumeFuel() {
+        if (0f < _fuelAmount) {
+            float consumedFuel = FuelConsumptionRate * Time.deltaTime;
+            _fuelAmount -= consumedFuel;
+            _fuelAmount = Mathf.Clamp(_fuelAmount, 0, float.MaxValue);
+        }
     }
 
     public event EventHandler OnIdle;
@@ -93,25 +114,34 @@ public class Lander : MonoBehaviour {
         OnIdle?.Invoke(this, EventArgs.Empty);
     }
 
-    private void HandleUpwardThrust() {
+    private bool HandleUpwardThrust() {
         if (Keyboard.current.upArrowKey.isPressed) {
             _rigidbody2D.AddForce(transform.up * (ThrustSpeed * Time.deltaTime), ForceMode2D.Force);
             OnUpForce?.Invoke(this, EventArgs.Empty);
+            return true;
         }
+
+        return false;
     }
 
-    private void HandleLeftRotation() {
+    private bool HandleLeftRotation() {
         if (Keyboard.current.leftArrowKey.isPressed) {
             _rigidbody2D.AddTorque(TorqueSpeed * Time.deltaTime);
             OnLeftForce?.Invoke(this, EventArgs.Empty);
+            return true;
         }
+
+        return false;
     }
 
-    private void HandleRightRotation() {
+    private bool HandleRightRotation() {
         if (Keyboard.current.rightArrowKey.isPressed) {
             _rigidbody2D.AddTorque(-TorqueSpeed * Time.deltaTime);
             OnRightForce?.Invoke(this, EventArgs.Empty);
+            return true;
         }
+
+        return false;
     }
 
     private bool IsLandingSpeedValid() {
