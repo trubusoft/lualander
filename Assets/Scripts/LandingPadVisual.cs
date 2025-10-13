@@ -1,15 +1,26 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class LandingPadVisual : MonoBehaviour {
-    [SerializeField] private TextMeshPro scoreMultiplierTextMesh;
+    [SerializeField] private TextMeshPro scoreMultiplierTextMeshPro;
+
+    private LandingPad _landingPad;
 
     private void Awake() {
-        UpdateMultiplierText();
+        Assert.IsNotNull(scoreMultiplierTextMeshPro);
+        GetLandingPad();
+        SetScoreMultiplierText();
     }
 
-    private void UpdateMultiplierText() {
-        LandingPad landingPad = gameObject.GetComponent<LandingPad>();
-        scoreMultiplierTextMesh.text = "x" + landingPad.getScoreMultiplier;
+    private void GetLandingPad() {
+        _landingPad = GetComponentInParent<LandingPad>();
+        Assert.IsNotNull(_landingPad);
+    }
+
+    private void SetScoreMultiplierText() {
+        int multiplier = _landingPad.getScoreMultiplier;
+        string text = $"x{multiplier}";
+        scoreMultiplierTextMeshPro.text = text;
     }
 }
