@@ -11,8 +11,6 @@ public class Lander : MonoBehaviour {
     private const float FuelStartingAmount = 10f;
     private const float FuelPickupAmount = 10f;
     private const float FuelConsumptionRate = 1f;
-    private Collider2D _collider2D;
-    private Collision2D _collision2D;
     private float _fuelAmount;
     private float _landingAngle;
     private float _landingSpeed;
@@ -39,23 +37,18 @@ public class Lander : MonoBehaviour {
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other) {
-        _collision2D = other;
-
-        HandleLandingPadCollision();
+    private void OnCollisionEnter2D(Collision2D otherCollision2D) {
+        HandleLandingPadCollision(otherCollision2D);
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        _collider2D = other;
-
-        HandleFuelCollision();
-        HandleCoinCollision();
+    private void OnTriggerEnter2D(Collider2D otherCollider2D) {
+        HandleFuelCollision(otherCollider2D);
+        HandleCoinCollision(otherCollider2D);
     }
 
-    private void HandleLandingPadCollision() {
-        Assert.IsNotNull(_collision2D);
-        if (_collision2D.gameObject.TryGetComponent(out LandingPad landingPad)) {
-            CalculateLandingSpeed();
+    private void HandleLandingPadCollision(Collision2D landingPadCollision) {
+        if (landingPadCollision.gameObject.TryGetComponent(out LandingPad landingPad)) {
+            CalculateLandingSpeed(landingPadCollision);
             CalculateLandingAngle();
 
             bool isWinCondition = IsLandingSpeedValid() && IsLandingAngleValid();
@@ -66,9 +59,8 @@ public class Lander : MonoBehaviour {
         }
     }
 
-    private void HandleFuelCollision() {
-        Assert.IsNotNull(_collider2D);
-        if (_collider2D.gameObject.TryGetComponent(out Fuel fuel)) {
+    private void HandleFuelCollision(Collider2D fuelCollider) {
+        if (fuelCollider.gameObject.TryGetComponent(out Fuel fuel)) {
             // refill fuel
             _fuelAmount += FuelPickupAmount;
             _fuelAmount = Mathf.Clamp(_fuelAmount, 0, float.MaxValue);
@@ -76,9 +68,8 @@ public class Lander : MonoBehaviour {
         }
     }
 
-    private void HandleCoinCollision() {
-        Assert.IsNotNull(_collider2D);
-        if (_collider2D.gameObject.TryGetComponent(out Coin coin)) {
+    private void HandleCoinCollision(Collider2D coinCollider) {
+        if (coinCollider.gameObject.TryGetComponent(out Coin coin)) {
             // todo: add score
             coin.DestroySelf();
         }
@@ -97,14 +88,12 @@ public class Lander : MonoBehaviour {
     public event EventHandler OnRightForce;
     public event EventHandler OnLeftForce;
 
-    private void CalculateLandingSpeed() {
-        Assert.IsNotNull(_collision2D);
-        var relativeVelocity = _collision2D.relativeVelocity;
+    private void CalculateLandingSpeed(Collision2D landingPadCollision) {
+        var relativeVelocity = landingPadCollision.relativeVelocity;
         _landingSpeed = relativeVelocity.magnitude;
     }
 
     private void CalculateLandingAngle() {
-        Assert.IsNotNull(_collision2D);
         _landingAngle = Vector2.Dot(Vector2.up, transform.up);
     }
 
