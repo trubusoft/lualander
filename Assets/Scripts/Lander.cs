@@ -21,18 +21,6 @@ public class Lander : MonoBehaviour {
 
     private bool isMoveable => 0f < _fuelAmount;
 
-    private bool isCollidedWithLandingPad {
-        get {
-            Assert.IsNotNull(_collision2D);
-            if (_collision2D.gameObject.TryGetComponent(out LandingPad landingPad)) {
-                SetCurrentLandingPad(landingPad);
-                return true;
-            }
-
-            return false;
-        }
-    }
-
     private void Awake() {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         Assert.IsNotNull(_rigidbody2D);
