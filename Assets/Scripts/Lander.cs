@@ -24,7 +24,6 @@ public class Lander : MonoBehaviour {
 
     private void FixedUpdate() {
         HandleIdle();
-        Debug.Log(_fuelAmount);
         if (isMoveable) {
             bool isGoingUp = HandleUpwardThrust();
             bool isGoingLeft = HandleLeftRotation();
