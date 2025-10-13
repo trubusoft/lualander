@@ -14,9 +14,12 @@ public class Lander : MonoBehaviour {
     private float _fuelAmount;
     private Rigidbody2D _rigidbody2D;
 
+    public static Lander Instance { get; private set; }
+
     private bool isMoveable => 0f < _fuelAmount;
 
     private void Awake() {
+        Instance = this;
         _rigidbody2D = GetComponent<Rigidbody2D>();
         Assert.IsNotNull(_rigidbody2D);
         _fuelAmount = FuelStartingAmount;
