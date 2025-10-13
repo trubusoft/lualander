@@ -65,13 +65,14 @@ public class Lander : MonoBehaviour {
             // refill fuel
             _fuelAmount += FuelPickupAmount;
             _fuelAmount = Mathf.Clamp(_fuelAmount, 0, float.MaxValue);
+            OnFuelPickup?.Invoke(this, EventArgs.Empty);
             fuel.DestroySelf();
         }
     }
 
     private void HandleCoinCollision(Collider2D coinCollider) {
         if (coinCollider.gameObject.TryGetComponent(out Coin coin)) {
-            // todo: add score
+            OnCoinPickup?.Invoke(this, EventArgs.Empty);
             coin.DestroySelf();
         }
     }
@@ -88,6 +89,8 @@ public class Lander : MonoBehaviour {
     public event EventHandler OnUpForce;
     public event EventHandler OnRightForce;
     public event EventHandler OnLeftForce;
+    public event EventHandler OnCoinPickup;
+    public event EventHandler OnFuelPickup;
 
     private static float CalculateLandingSpeed(Collision2D landingPadCollision) {
         var relativeVelocity = landingPadCollision.relativeVelocity;
