@@ -38,8 +38,8 @@ public class Lander : MonoBehaviour {
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        _collision2D = collision;
+    private void OnCollisionEnter2D(Collision2D other) {
+        _collision2D = other;
 
         if (IsCollidedWithLandingPad()) {
             CalculateLandingSpeed();
