@@ -21,6 +21,25 @@ public class Lander : MonoBehaviour {
 
     private bool isMoveable => 0f < _fuelAmount;
 
+    private bool isCollidedWithLandingPad {
+        get {
+            Assert.IsNotNull(_collision2D);
+            if (_collision2D.gameObject.TryGetComponent(out LandingPad landingPad)) {
+                SetCurrentLandingPad(landingPad);
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    private bool isCollidedWithFuel {
+        get {
+            Assert.IsNotNull(_collider2D);
+            return _collider2D.gameObject.TryGetComponent(out Fuel _);
+        }
+    }
+
     private void Awake() {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         Assert.IsNotNull(_rigidbody2D);
@@ -43,7 +62,7 @@ public class Lander : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D other) {
         _collision2D = other;
 
-        if (IsCollidedWithLandingPad()) {
+        if (isCollidedWithLandingPad) {
             CalculateLandingSpeed();
             CalculateLandingAngle();
 
@@ -61,7 +80,7 @@ public class Lander : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other) {
         _collider2D = other;
 
-        if (IsCollidedWithFuel()) {
+        if (isCollidedWithFuel) {
             RefillFuel();
         }
     }
@@ -109,21 +128,6 @@ public class Lander : MonoBehaviour {
 
         float finalScore = (speedScore + angleScore) * _landingPad.GetScoreMultiplier();
         Debug.Log(finalScore);
-    }
-
-    private bool IsCollidedWithLandingPad() {
-        Assert.IsNotNull(_collision2D);
-        if (_collision2D.gameObject.TryGetComponent(out LandingPad landingPad)) {
-            SetCurrentLandingPad(landingPad);
-            return true;
-        }
-
-        return false;
-    }
-
-    private bool IsCollidedWithFuel() {
-        Assert.IsNotNull(_collider2D);
-        return _collider2D.gameObject.TryGetComponent(out Fuel _);
     }
 
     private void SetCurrentLandingPad(LandingPad landingPad) {
