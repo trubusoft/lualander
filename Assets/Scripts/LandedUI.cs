@@ -31,17 +31,17 @@ public class LandedUI : MonoBehaviour {
             case Lander.LandingType.LandedTooFast:
                 titleTextMesh.text = "Landed too Fast";
                 nextButtonTextMesh.text = "Retry";
-                _nextButtonAction = GameManager.instance.Retrylevel;
+                _nextButtonAction = GameManager.instance.RetryLevel;
                 break;
             case Lander.LandingType.LandedTooSteep:
                 titleTextMesh.text = "Landed too Steep";
                 nextButtonTextMesh.text = "Retry";
-                _nextButtonAction = GameManager.instance.Retrylevel;
+                _nextButtonAction = GameManager.instance.RetryLevel;
                 break;
             case Lander.LandingType.LandedOnTerrain:
                 titleTextMesh.text = "Crashed";
                 nextButtonTextMesh.text = "Retry";
-                _nextButtonAction = GameManager.instance.Retrylevel;
+                _nextButtonAction = GameManager.instance.RetryLevel;
                 break;
         }
 

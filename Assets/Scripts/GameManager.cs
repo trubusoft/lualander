@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour {
         SceneManager.LoadScene(0);
     }
 
-    public void Retrylevel() {
+    public void RetryLevel() {
         SceneManager.LoadScene(0);
     }
 }
