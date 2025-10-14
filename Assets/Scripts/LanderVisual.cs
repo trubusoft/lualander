@@ -6,6 +6,7 @@ public class LanderVisual : MonoBehaviour {
     [SerializeField] private ParticleSystem leftThruster;
     [SerializeField] private ParticleSystem middleThruster;
     [SerializeField] private ParticleSystem rightThruster;
+    [SerializeField] private GameObject landerExplosionVfx;
 
     private Lander _lander;
 
@@ -14,24 +15,43 @@ public class LanderVisual : MonoBehaviour {
         Assert.IsNotNull(_lander);
 
         _lander.OnIdle += LanderOnOnIdle;
-        _lander.OnUpForce += LanderOnOnUpForce;
-        _lander.OnLeftForce += LanderOnOnLeftForce;
-        _lander.OnRightForce += LanderOnOnRightForce;
+        _lander.OnUpForce += LanderOnUpForce;
+        _lander.OnLeftForce += LanderOnLeftForce;
+        _lander.OnRightForce += LanderOnRightForce;
+    }
+
+    private void Start() {
+        _lander.OnLanding += LanderOnLanding;
+    }
+
+    private void LanderOnLanding(object sender, Lander.OnLandingArgs e) {
+        HandleCrash(e);
+    }
+
+    private void HandleCrash(Lander.OnLandingArgs e) {
+        switch (e.LandingType) {
+            case Lander.LandingType.LandedOnTerrain:
+            case Lander.LandingType.LandedTooFast:
+            case Lander.LandingType.LandedTooSteep:
+                Instantiate(landerExplosionVfx, transform.position, Quaternion.identity);
+                _lander.gameObject.SetActive(false);
+                break;
+        }
     }
 
     private void LanderOnOnIdle(object sender, EventArgs e) {
         SetIdleThruster();
     }
 
-    private void LanderOnOnUpForce(object sender, EventArgs e) {
+    private void LanderOnUpForce(object sender, EventArgs e) {
         SetUpwardThruster();
     }
 
-    private void LanderOnOnLeftForce(object sender, EventArgs e) {
+    private void LanderOnLeftForce(object sender, EventArgs e) {
         SetRightThruster();
     }
 
-    private void LanderOnOnRightForce(object sender, EventArgs e) {
+    private void LanderOnRightForce(object sender, EventArgs e) {
         SetLeftThruster();
     }
 

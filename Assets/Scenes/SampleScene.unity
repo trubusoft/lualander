@@ -1698,6 +1698,7 @@ MonoBehaviour:
   leftThruster: {fileID: 1665379786}
   middleThruster: {fileID: 1698200292}
   rightThruster: {fileID: 596457622}
+  landerExplosionVfx: {fileID: 570857052369263401, guid: 6417a7f60d478884997c6c9ac491d28a, type: 3}
 --- !u!1 &992505612
 GameObject:
   m_ObjectHideFlags: 0
