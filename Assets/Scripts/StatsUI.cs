@@ -37,11 +37,13 @@ public class StatsUI : MonoBehaviour {
     }
 
     private void UpdateStatsTextMesh() {
+        int levelNumber = GameManager.instance.GetLevelNumber();
         int score = GameManager.instance.GetScore();
         float time = Mathf.Round(GameManager.instance.GetTime());
         float speedX = Mathf.Abs(Mathf.Round(Lander.instance.GetSpeedX() * 10f));
         float speedY = Mathf.Abs(Mathf.Round(Lander.instance.GetSpeedY() * 10f));
-        string finalString = $"{score}\n" +
+        string finalString = $"{levelNumber}\n" +
+                             $"{score}\n" +
                              $"{time}\n" +
                              $"{speedX}\n" +
                              $"{speedY}";

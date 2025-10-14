@@ -68,6 +68,10 @@ public class GameManager : MonoBehaviour {
         return _time;
     }
 
+    public int GetLevelNumber() {
+        return _levelNumber;
+    }
+
     public void GoToNextLevel() {
         _levelNumber++;
         SceneManager.LoadScene(0);
