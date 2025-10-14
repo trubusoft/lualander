@@ -701,7 +701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c917eec552d39a9468a2183bcce3e3fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Level
-  levelNumber: 1
+  levelNumber: 2
   landerStartingPosition: {fileID: 4319841435800997404}
 --- !u!1001 &83265641438920338
 PrefabInstance:
