@@ -172,6 +172,7 @@ public class Lander : MonoBehaviour {
     }
 
     public class OnLandingArgs : EventArgs {
+        public LandingType LandingType;
         public int Score;
     }
 }
