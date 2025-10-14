@@ -56,7 +56,6 @@ public class Lander : MonoBehaviour {
             bool isWinConditionMet = isLandingSpeedValid && isLandingAngleValid;
 
             if (isWinConditionMet) {
-                Debug.Log("Win");
                 CalculateScore(landingSpeed, landingAngle, landingPad.GetScoreMultiplier());
             }
         }
@@ -147,6 +146,18 @@ public class Lander : MonoBehaviour {
         }
 
         return false;
+    }
+
+    public float GetSpeedX() {
+        return _rigidbody2D.linearVelocityX;
+    }
+
+    public float GetSpeedY() {
+        return _rigidbody2D.linearVelocityY;
+    }
+
+    public float GetFuel() {
+        return _fuelAmount;
     }
 
     public class OnLandingArgs : EventArgs {

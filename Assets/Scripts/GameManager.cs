@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     private int _score;
+    private float _time;
     public static GameManager instance { get; private set; }
 
     private void Awake() {
@@ -19,6 +20,10 @@ public class GameManager : MonoBehaviour {
         Lander.instance.OnLanding += LanderOnLanding;
     }
 
+    private void Update() {
+        _time += Time.deltaTime;
+    }
+
     private void LanderOnLanding(object sender, Lander.OnLandingArgs e) {
         AddScore(e.Score);
     }
@@ -29,6 +34,13 @@ public class GameManager : MonoBehaviour {
 
     private void AddScore(int amount) {
         _score += amount;
-        Debug.Log("Score: " + _score);
+    }
+
+    public int GetScore() {
+        return _score;
+    }
+
+    public float GetTime() {
+        return _time;
     }
 }
