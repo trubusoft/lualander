@@ -11,6 +11,12 @@ public class Lander : MonoBehaviour {
         LandedTooFast,
     }
 
+    public enum State {
+        Ready,
+        Playing,
+        GameOver
+    }
+
     private const float GravityNormal = 0.7f;
     private const float GravityDisabled = 0f;
     private const float ThrustSpeed = 700f;
@@ -23,6 +29,8 @@ public class Lander : MonoBehaviour {
     private float _fuelAmount;
     private Rigidbody2D _rigidbody2D;
 
+    private State _state;
+
     public static Lander instance { get; private set; }
 
     private bool isMoveable => 0f < _fuelAmount;
@@ -31,18 +39,34 @@ public class Lander : MonoBehaviour {
         instance = this;
         _rigidbody2D = GetComponent<Rigidbody2D>();
         Assert.IsNotNull(_rigidbody2D);
-        _fuelAmount = FuelStartingAmount;
+        SetState(State.Ready);
     }
 
     private void FixedUpdate() {
         HandleIdle();
-        if (isMoveable) {
-            bool isGoingUp = HandleUpwardThrust();
-            bool isGoingLeft = HandleLeftRotation();
-            bool isGoingRight = HandleRightRotation();
-            if (isGoingUp || isGoingLeft || isGoingRight) {
-                ConsumeFuel();
-            }
+
+        switch (_state) {
+            case State.Ready:
+                if (Keyboard.current.upArrowKey.isPressed ||
+                    Keyboard.current.upArrowKey.isPressed ||
+                    Keyboard.current.upArrowKey.isPressed) {
+                    SetState(State.Playing);
+                }
+
+                break;
+            case State.Playing:
+                if (isMoveable) {
+                    bool isGoingUp = HandleUpwardThrust();
+                    bool isGoingLeft = HandleLeftRotation();
+                    bool isGoingRight = HandleRightRotation();
+                    if (isGoingUp || isGoingLeft || isGoingRight) {
+                        ConsumeFuel();
+                    }
+                }
+
+                break;
+            case State.GameOver:
+                break;
         }
     }
 
@@ -83,6 +107,7 @@ public class Lander : MonoBehaviour {
             }
 
             OnLanding?.Invoke(this, onLandingArgs);
+            SetState(State.GameOver);
         }
     }
 
@@ -98,6 +123,7 @@ public class Lander : MonoBehaviour {
                 ScoreMultiplier = 0,
                 Score = 0
             });
+            SetState(State.GameOver);
         }
     }
 
@@ -131,6 +157,26 @@ public class Lander : MonoBehaviour {
     public event EventHandler OnLeftForce;
     public event EventHandler OnCoinPickup;
     public event EventHandler<OnLandingArgs> OnLanding;
+    public event EventHandler<OnStateChangedArgs> OnStateChanged;
+
+    private void SetState(State state) {
+        _state = state;
+        OnStateChanged?.Invoke(this, new OnStateChangedArgs { State = state });
+
+        switch (_state) {
+            case State.Ready:
+                _fuelAmount = FuelStartingAmount;
+                _rigidbody2D.gravityScale = GravityDisabled;
+                break;
+            case State.Playing:
+                _rigidbody2D.gravityScale = GravityNormal;
+                break;
+            case State.GameOver:
+                _rigidbody2D.gravityScale = GravityNormal;
+                _rigidbody2D.gravityScale = GravityDisabled;
+                break;
+        }
+    }
 
     private static float CalculateLandingSpeed(Collision2D landingPadCollision) {
         var relativeVelocity = landingPadCollision.relativeVelocity;
@@ -208,5 +254,9 @@ public class Lander : MonoBehaviour {
         public LandingType LandingType;
         public int Score;
         public float ScoreMultiplier;
+    }
+
+    public class OnStateChangedArgs : EventArgs {
+        public State State;
     }
 }
