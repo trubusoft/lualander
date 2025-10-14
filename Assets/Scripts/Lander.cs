@@ -4,6 +4,13 @@ using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
 public class Lander : MonoBehaviour {
+    public enum LandingType {
+        Success,
+        LandedOnTerrain,
+        LandedTooSteep,
+        LandedTooFast,
+    }
+
     private const float ThrustSpeed = 700f;
     private const float TorqueSpeed = 300f;
     private const float SpeedThreshold = 4f;
