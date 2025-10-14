@@ -11,6 +11,8 @@ public class Lander : MonoBehaviour {
         LandedTooFast,
     }
 
+    private const float GravityNormal = 0.7f;
+    private const float GravityDisabled = 0f;
     private const float ThrustSpeed = 700f;
     private const float TorqueSpeed = 300f;
     private const float SpeedThreshold = 4f;
