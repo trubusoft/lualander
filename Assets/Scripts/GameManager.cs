@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     [SerializeField] private int levelNumber;
@@ -61,5 +62,14 @@ public class GameManager : MonoBehaviour {
 
     public float GetTime() {
         return _time;
+    }
+
+    public void GoToNextLevel() {
+        levelNumber++;
+        SceneManager.LoadScene(0);
+    }
+
+    public void Retrylevel() {
+        SceneManager.LoadScene(0);
     }
 }
