@@ -1,20 +1,29 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Serialization;
 
 public class StatsUI : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI statsTextMeshUGUI;
-    [SerializeField] private GameObject leftArrowGameObject;
-    [SerializeField] private GameObject rightArrowGameObject;
-    [SerializeField] private GameObject upArrowGameObject;
-    [SerializeField] private GameObject downArrowGameObject;
+
+    [FormerlySerializedAs("leftArrowGameObject")] [SerializeField]
+    private GameObject speedLeftArrowGameObject;
+
+    [FormerlySerializedAs("rightArrowGameObject")] [SerializeField]
+    private GameObject speedRightArrowGameObject;
+
+    [FormerlySerializedAs("upArrowGameObject")] [SerializeField]
+    private GameObject speedUpArrowGameObject;
+
+    [FormerlySerializedAs("downArrowGameObject")] [SerializeField]
+    private GameObject speedDownArrowGameObject;
 
     private void Awake() {
         Assert.IsNotNull(statsTextMeshUGUI);
-        Assert.IsNotNull(leftArrowGameObject);
-        Assert.IsNotNull(rightArrowGameObject);
-        Assert.IsNotNull(upArrowGameObject);
-        Assert.IsNotNull(downArrowGameObject);
+        Assert.IsNotNull(speedLeftArrowGameObject);
+        Assert.IsNotNull(speedRightArrowGameObject);
+        Assert.IsNotNull(speedUpArrowGameObject);
+        Assert.IsNotNull(speedDownArrowGameObject);
     }
 
     private void Update() {
@@ -37,9 +46,9 @@ public class StatsUI : MonoBehaviour {
     }
 
     private void UpdateDirectionArrow() {
-        upArrowGameObject.SetActive(Lander.instance.GetSpeedY() > 0.5f);
-        downArrowGameObject.SetActive(Lander.instance.GetSpeedY() < -0.5f);
-        rightArrowGameObject.SetActive(Lander.instance.GetSpeedX() > 0.5f);
-        leftArrowGameObject.SetActive(Lander.instance.GetSpeedX() < -0.5f);
+        speedUpArrowGameObject.SetActive(Lander.instance.GetSpeedY() > 0.01f);
+        speedDownArrowGameObject.SetActive(Lander.instance.GetSpeedY() < -0.01f);
+        speedRightArrowGameObject.SetActive(Lander.instance.GetSpeedX() > 0.01f);
+        speedLeftArrowGameObject.SetActive(Lander.instance.GetSpeedX() < -0.01f);
     }
 }

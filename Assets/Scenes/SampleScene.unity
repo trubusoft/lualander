@@ -2523,8 +2523,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 292.73285, y: -219.13815}
-  m_SizeDelta: {x: 383.4438, y: 279.0975}
+  m_AnchoredPosition: {x: 191.71997, y: -133.9256}
+  m_SizeDelta: {x: 383.4438, y: 267.8487}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1885214046
 MonoBehaviour:
@@ -2539,10 +2539,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatsUI
   statsTextMeshUGUI: {fileID: 1466204430}
-  leftArrowGameObject: {fileID: 1034161372}
-  rightArrowGameObject: {fileID: 2032586670}
-  upArrowGameObject: {fileID: 2098786085}
-  downArrowGameObject: {fileID: 603927801}
+  speedLeftArrowGameObject: {fileID: 1034161372}
+  speedRightArrowGameObject: {fileID: 2032586670}
+  speedUpArrowGameObject: {fileID: 2098786085}
+  speedDownArrowGameObject: {fileID: 603927801}
 --- !u!1 &2032586670
 GameObject:
   m_ObjectHideFlags: 0
