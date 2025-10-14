@@ -12,12 +12,16 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance { get; private set; }
 
     private void Awake() {
-        if (instance != null && instance != this) {
-            Destroy(gameObject); // destroy duplicate item
-        } else {
-            instance = this;
-            DontDestroyOnLoad(gameObject); // persist across scenes
-        }
+        instance = this;
+        // Debug.Log("GameManager Awake");
+        // if (instance != null && instance != this) {
+        //     Debug.Log("GameManager Instance destroyed");
+        //     Destroy(gameObject); // destroy duplicate item
+        // } else {
+        //     Debug.Log("GameManager Instance assigned");
+        //     instance = this;
+        //     DontDestroyOnLoad(gameObject); // persist across scenes
+        // }
     }
 
     private void Start() {
