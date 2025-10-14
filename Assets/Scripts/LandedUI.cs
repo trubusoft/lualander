@@ -1,9 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LandedUI : MonoBehaviour {
     [SerializeField] TextMeshProUGUI titleTextMesh;
     [SerializeField] TextMeshProUGUI statsTextMesh;
+    [SerializeField] Button nextButton;
 
     private void Start() {
         Lander.instance.OnLanding += LanderOnLanding;
