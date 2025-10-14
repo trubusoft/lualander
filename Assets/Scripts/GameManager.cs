@@ -1,7 +1,11 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
+    [SerializeField] private int levelNumber;
+    [SerializeField] private List<Level> levels;
+
     private int _score;
     private float _time;
     public static GameManager instance { get; private set; }
@@ -18,10 +22,25 @@ public class GameManager : MonoBehaviour {
     private void Start() {
         Lander.instance.OnCoinPickup += LanderCoinPickup;
         Lander.instance.OnLanding += LanderOnLanding;
+
+        LoadCurrentLevel();
     }
 
     private void Update() {
         _time += Time.deltaTime;
+    }
+
+    private void LoadCurrentLevel() {
+        foreach (Level level in levels) {
+            if (level.GetLevelNumber() == levelNumber) {
+                // load level
+                Level instantiatedLevel = Instantiate(level, Vector3.zero, Quaternion.identity);
+
+                // set lander to starting position
+                Vector3 landerStartingPosition = instantiatedLevel.GetLanderStartingPosition();
+                Lander.instance.transform.position = landerStartingPosition;
+            }
+        }
     }
 
     private void LanderOnLanding(object sender, Lander.OnLandingArgs e) {
