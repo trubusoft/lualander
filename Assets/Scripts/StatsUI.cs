@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class StatsUI : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI statsTextMeshUGUI;
@@ -18,17 +19,21 @@ public class StatsUI : MonoBehaviour {
     [FormerlySerializedAs("downArrowGameObject")] [SerializeField]
     private GameObject speedDownArrowGameObject;
 
+    [SerializeField] private Image fuelImage;
+
     private void Awake() {
         Assert.IsNotNull(statsTextMeshUGUI);
         Assert.IsNotNull(speedLeftArrowGameObject);
         Assert.IsNotNull(speedRightArrowGameObject);
         Assert.IsNotNull(speedUpArrowGameObject);
         Assert.IsNotNull(speedDownArrowGameObject);
+        Assert.IsNotNull(fuelImage);
     }
 
     private void Update() {
         UpdateStatsTextMesh();
         UpdateDirectionArrow();
+        UpdateFuelBarImage();
     }
 
     private void UpdateStatsTextMesh() {
@@ -36,12 +41,10 @@ public class StatsUI : MonoBehaviour {
         float time = Mathf.Round(GameManager.instance.GetTime());
         float speedX = Mathf.Abs(Mathf.Round(Lander.instance.GetSpeedX() * 10f));
         float speedY = Mathf.Abs(Mathf.Round(Lander.instance.GetSpeedY() * 10f));
-        string fuel = Lander.instance.GetFuel().ToString("0.00");
         string finalString = $"{score}\n" +
                              $"{time}\n" +
                              $"{speedX}\n" +
-                             $"{speedY}\n" +
-                             $"{fuel}";
+                             $"{speedY}";
         statsTextMeshUGUI.text = finalString;
     }
 
@@ -50,5 +53,9 @@ public class StatsUI : MonoBehaviour {
         speedDownArrowGameObject.SetActive(Lander.instance.GetSpeedY() < -0.01f);
         speedRightArrowGameObject.SetActive(Lander.instance.GetSpeedX() > 0.01f);
         speedLeftArrowGameObject.SetActive(Lander.instance.GetSpeedX() < -0.01f);
+    }
+
+    private void UpdateFuelBarImage() {
+        fuelImage.fillAmount = Lander.instance.GetFuelNormalized();
     }
 }

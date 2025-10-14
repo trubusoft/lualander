@@ -65,7 +65,7 @@ public class Lander : MonoBehaviour {
         if (fuelCollider.gameObject.TryGetComponent(out Fuel fuel)) {
             // refill fuel
             _fuelAmount += FuelPickupAmount;
-            _fuelAmount = Mathf.Clamp(_fuelAmount, 0, float.MaxValue);
+            _fuelAmount = Mathf.Clamp(_fuelAmount, 0, FuelStartingAmount);
             fuel.DestroySelf();
         }
     }
@@ -158,6 +158,10 @@ public class Lander : MonoBehaviour {
 
     public float GetFuel() {
         return _fuelAmount;
+    }
+
+    public float GetFuelNormalized() {
+        return _fuelAmount / FuelStartingAmount;
     }
 
     public class OnLandingArgs : EventArgs {
