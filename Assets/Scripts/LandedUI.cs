@@ -21,8 +21,8 @@ public class LandedUI : MonoBehaviour {
             titleTextMesh.text = "Crashed";
         }
 
-        var landingSpeed = Mathf.Round(e.LandingSpeed);
-        var landingAngle = Mathf.Round(e.LandingAngle);
+        var landingSpeed = Mathf.Round(e.LandingSpeed * 2f);
+        var landingAngle = Mathf.Round(e.LandingAngle * 100f);
 
         statsTextMesh.text = $"{landingSpeed}\n" +
                              $"{landingAngle}\n" +
