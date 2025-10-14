@@ -1,11 +1,14 @@
 using UnityEngine;
 
 public class Level : MonoBehaviour {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start() {
+    [SerializeField] private int levelNumber;
+    [SerializeField] private Transform landerStartingPosition;
+
+    public int GetLevelNumber() {
+        return levelNumber;
     }
 
-    // Update is called once per frame
-    void Update() {
+    public Vector3 GetLanderStartingPosition() {
+        return landerStartingPosition.position;
     }
 }
