@@ -85,7 +85,7 @@ public class Lander : MonoBehaviour {
     }
 
     private void HandleTerrainCollision(Collision2D terrainCollision) {
-        if (terrainCollision.gameObject.TryGetComponent(out Terrain _)) {
+        if (terrainCollision.gameObject.TryGetComponent(out Wall _)) {
             float landingSpeed = CalculateLandingSpeed(terrainCollision);
             float landingAngle = CalculateLandingAngle();
 
