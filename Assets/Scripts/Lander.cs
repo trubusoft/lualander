@@ -172,7 +172,10 @@ public class Lander : MonoBehaviour {
     }
 
     public class OnLandingArgs : EventArgs {
+        public float LandingAngle;
+        public float LandingSpeed;
         public LandingType LandingType;
         public int Score;
+        public float ScoreMultiplier;
     }
 }
