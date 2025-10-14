@@ -438,6 +438,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76e34fdeb67e1b941a3dc69abc248a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LandedUI
+  titleTextMesh: {fileID: 1796822059}
+  statsTextMesh: {fileID: 1613576533}
 --- !u!1 &416644905
 GameObject:
   m_ObjectHideFlags: 0
