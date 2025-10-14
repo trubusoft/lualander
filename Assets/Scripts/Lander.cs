@@ -56,7 +56,6 @@ public class Lander : MonoBehaviour {
             bool isWinConditionMet = isLandingSpeedValid && isLandingAngleValid;
 
             if (isWinConditionMet) {
-                Debug.Log("Win");
                 CalculateScore(landingSpeed, landingAngle, landingPad.GetScoreMultiplier());
             }
         }
@@ -66,7 +65,7 @@ public class Lander : MonoBehaviour {
         if (fuelCollider.gameObject.TryGetComponent(out Fuel fuel)) {
             // refill fuel
             _fuelAmount += FuelPickupAmount;
-            _fuelAmount = Mathf.Clamp(_fuelAmount, 0, float.MaxValue);
+            _fuelAmount = Mathf.Clamp(_fuelAmount, 0, FuelStartingAmount);
             fuel.DestroySelf();
         }
     }
@@ -147,6 +146,22 @@ public class Lander : MonoBehaviour {
         }
 
         return false;
+    }
+
+    public float GetSpeedX() {
+        return _rigidbody2D.linearVelocityX;
+    }
+
+    public float GetSpeedY() {
+        return _rigidbody2D.linearVelocityY;
+    }
+
+    public float GetFuel() {
+        return _fuelAmount;
+    }
+
+    public float GetFuelNormalized() {
+        return _fuelAmount / FuelStartingAmount;
     }
 
     public class OnLandingArgs : EventArgs {
