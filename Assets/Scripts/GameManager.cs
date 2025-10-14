@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
-    [SerializeField] private int levelNumber;
+    private static int _levelNumber = 1;
     [SerializeField] private List<Level> levels;
 
     private int _score;
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
 
     private void LoadCurrentLevel() {
         foreach (Level level in levels) {
-            if (level.GetLevelNumber() == levelNumber) {
+            if (level.GetLevelNumber() == _levelNumber) {
                 // load level
                 Level instantiatedLevel = Instantiate(level, Vector3.zero, Quaternion.identity);
 
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void GoToNextLevel() {
-        levelNumber++;
+        _levelNumber++;
         SceneManager.LoadScene(0);
     }
 
