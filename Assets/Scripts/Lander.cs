@@ -4,6 +4,13 @@ using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
 public class Lander : MonoBehaviour {
+    public enum LandingType {
+        Success,
+        LandedOnTerrain,
+        LandedTooSteep,
+        LandedTooFast,
+    }
+
     private const float ThrustSpeed = 700f;
     private const float TorqueSpeed = 300f;
     private const float SpeedThreshold = 4f;
@@ -38,6 +45,7 @@ public class Lander : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D otherCollision2D) {
+        HandleTerrainCollision(otherCollision2D);
         HandleLandingPadCollision(otherCollision2D);
     }
 
@@ -55,9 +63,39 @@ public class Lander : MonoBehaviour {
             bool isLandingAngleValid = AngleThreshold <= landingAngle;
             bool isWinConditionMet = isLandingSpeedValid && isLandingAngleValid;
 
+            OnLandingArgs onLandingArgs = new OnLandingArgs {
+                LandingSpeed = landingSpeed,
+                LandingAngle = landingAngle,
+                ScoreMultiplier = landingPad.GetScoreMultiplier(),
+                Score = 0
+            };
+
             if (isWinConditionMet) {
-                CalculateScore(landingSpeed, landingAngle, landingPad.GetScoreMultiplier());
+                int finalScore = CalculateScore(landingSpeed, landingAngle, landingPad.GetScoreMultiplier());
+                onLandingArgs.LandingType = LandingType.Success;
+                onLandingArgs.Score = finalScore;
+            } else if (!isLandingSpeedValid) {
+                onLandingArgs.LandingType = LandingType.LandedTooFast;
+            } else if (!isLandingAngleValid) {
+                onLandingArgs.LandingType = LandingType.LandedTooSteep;
             }
+
+            OnLanding?.Invoke(this, onLandingArgs);
+        }
+    }
+
+    private void HandleTerrainCollision(Collision2D terrainCollision) {
+        if (terrainCollision.gameObject.TryGetComponent(out Terrain _)) {
+            float landingSpeed = CalculateLandingSpeed(terrainCollision);
+            float landingAngle = CalculateLandingAngle();
+
+            OnLanding?.Invoke(this, new OnLandingArgs {
+                LandingType = LandingType.LandedOnTerrain,
+                LandingSpeed = landingSpeed,
+                LandingAngle = landingAngle,
+                ScoreMultiplier = 0,
+                Score = 0
+            });
         }
     }
 
@@ -101,7 +139,7 @@ public class Lander : MonoBehaviour {
         return Vector2.Dot(Vector2.up, transform.up);
     }
 
-    private void CalculateScore(float landingSpeed, float landingAngle, int scoreMultiplier) {
+    private int CalculateScore(float landingSpeed, float landingAngle, int scoreMultiplier) {
         const float maxAngleScore = 100;
         const float maxSpeedScore = 100;
 
@@ -109,9 +147,7 @@ public class Lander : MonoBehaviour {
         float speedScore = (SpeedThreshold - landingSpeed) * maxSpeedScore;
 
         int finalScore = (int)(speedScore + angleScore) * scoreMultiplier;
-        OnLanding?.Invoke(this, new OnLandingArgs {
-            Score = finalScore,
-        });
+        return finalScore;
     }
 
     private void HandleIdle() {
@@ -165,6 +201,10 @@ public class Lander : MonoBehaviour {
     }
 
     public class OnLandingArgs : EventArgs {
+        public float LandingAngle;
+        public float LandingSpeed;
+        public LandingType LandingType;
         public int Score;
+        public float ScoreMultiplier;
     }
 }
