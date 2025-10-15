@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour {
             case Lander.State.Playing:
                 _isTimerActive = true;
                 cinemachineCamera.Target.TrackingTarget = Lander.instance.transform;
+                CinemachineCameraZoom.instance.ResetOrthographicSize();
                 break;
             case Lander.State.GameOver:
                 _isTimerActive = false;
@@ -72,6 +73,8 @@ public class GameManager : MonoBehaviour {
 
                 // set camera to starting position
                 cinemachineCamera.Target.TrackingTarget = instantiatedLevel.GetCameraStartingPosition();
+                CinemachineCameraZoom.instance.SetOrthographicSize(
+                    instantiatedLevel.GetZoomedOutOrthographicSize());
             }
         }
     }
