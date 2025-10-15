@@ -4098,6 +4098,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25f2bf7515cc7343937e21d629eaa47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  crashAudioClip: {fileID: 8300000, guid: 4c9f9d63f11fa4d4ca1c537cd058256d, type: 3}
+  sadTromboneAudioClip: {fileID: 8300000, guid: 01befbcde996789459e5468713dae303, type: 3}
 --- !u!1 &2142092381
 GameObject:
   m_ObjectHideFlags: 0

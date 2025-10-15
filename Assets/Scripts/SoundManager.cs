@@ -1,11 +1,26 @@
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private AudioClip crashAudioClip;
+    [SerializeField] private AudioClip sadTromboneAudioClip;
+
     void Start() {
+        Lander.instance.OnLanding += LanderOnLanding;
     }
 
-    // Update is called once per frame
-    void Update() {
+    private void LanderOnLanding(object sender, Lander.OnLandingArgs e) {
+        switch (e.LandingType) {
+            case Lander.LandingType.LandedOnTerrain:
+            case Lander.LandingType.LandedTooFast:
+            case Lander.LandingType.LandedTooSteep:
+                Camera mainCamera = Camera.main;
+                if (mainCamera == null) {
+                    break;
+                }
+
+                AudioSource.PlayClipAtPoint(crashAudioClip, mainCamera.transform.position);
+                AudioSource.PlayClipAtPoint(sadTromboneAudioClip, mainCamera.transform.position);
+                break;
+        }
     }
 }
