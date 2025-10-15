@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     private static int _levelNumber = 1;
@@ -108,11 +107,11 @@ public class GameManager : MonoBehaviour {
     public void GoToNextLevel() {
         Input.instance.DisableInputAction();
         _levelNumber++;
-        SceneManager.LoadScene(0);
+        SceneLoader.LoadScene(SceneLoader.Scene.Game);
     }
 
     public void RetryLevel() {
         Input.instance.DisableInputAction();
-        SceneManager.LoadScene(0);
+        SceneLoader.LoadScene(SceneLoader.Scene.Game);
     }
 }
