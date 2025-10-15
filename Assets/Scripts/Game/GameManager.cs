@@ -31,12 +31,8 @@ public class GameManager : MonoBehaviour {
         Lander.instance.OnLanding += LanderOnLanding;
         Lander.instance.OnStateChanged += LanderOnStateChanged;
 
-        Level currentlevel = GetCurrentLevel();
-        if (currentlevel != null) {
-            LoadCurrentLevel(currentlevel);
-        } else {
-            SceneLoader.LoadScene(SceneLoader.Scene.Menu);
-        }
+        Level currentLevel = GetCurrentLevel();
+        LoadCurrentLevel(currentLevel);
     }
 
     private void Update() {
@@ -120,7 +116,14 @@ public class GameManager : MonoBehaviour {
 
     public void GoToNextLevel() {
         _levelNumber++;
-        SceneLoader.LoadScene(SceneLoader.Scene.Game);
+
+        Level level = GetCurrentLevel();
+        if (level != null) {
+            // game still has more level
+            SceneLoader.LoadScene(SceneLoader.Scene.Game);
+        } else {
+            SceneLoader.LoadScene(SceneLoader.Scene.Menu);
+        }
     }
 
     public void RetryLevel() {
