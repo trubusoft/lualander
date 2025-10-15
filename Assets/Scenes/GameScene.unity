@@ -553,6 +553,7 @@ MonoBehaviour:
   levels:
   - {fileID: 1694953693789054659, guid: 18616843c7c39db4db4c9ef9a4a4e36c, type: 3}
   - {fileID: 1694953693789054659, guid: 9fea3f20e202e104081856a7b1869693, type: 3}
+  cinemachineCamera: {fileID: 897569348}
 --- !u!4 &416644907
 Transform:
   m_ObjectHideFlags: 0
