@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.InputSystem;
 
 public class Lander : MonoBehaviour {
     public enum LandingType {
@@ -41,9 +40,9 @@ public class Lander : MonoBehaviour {
     private void FixedUpdate() {
         HandleIdle();
 
-        bool isUpAction = Keyboard.current.upArrowKey.isPressed;
-        bool isLeftAction = Keyboard.current.leftArrowKey.isPressed;
-        bool isRightAction = Keyboard.current.rightArrowKey.isPressed;
+        bool isUpAction = Input.instance.IsLanderUp();
+        bool isLeftAction = Input.instance.IsLanderLeft();
+        bool isRightAction = Input.instance.IsLanderRight();
         bool isActionSupplied = isUpAction || isLeftAction || isRightAction;
 
         switch (_state) {
@@ -214,21 +213,21 @@ public class Lander : MonoBehaviour {
     }
 
     private void HandleUpwardThrust() {
-        if (Keyboard.current.upArrowKey.isPressed) {
+        if (Input.instance.IsLanderUp()) {
             _rigidbody2D.AddForce(transform.up * (ThrustSpeed * Time.deltaTime), ForceMode2D.Force);
             OnUpForce?.Invoke(this, EventArgs.Empty);
         }
     }
 
     private void HandleLeftRotation() {
-        if (Keyboard.current.leftArrowKey.isPressed) {
+        if (Input.instance.IsLanderLeft()) {
             _rigidbody2D.AddTorque(TorqueSpeed * Time.deltaTime);
             OnLeftForce?.Invoke(this, EventArgs.Empty);
         }
     }
 
     private void HandleRightRotation() {
-        if (Keyboard.current.rightArrowKey.isPressed) {
+        if (Input.instance.IsLanderRight()) {
             _rigidbody2D.AddTorque(-TorqueSpeed * Time.deltaTime);
             OnRightForce?.Invoke(this, EventArgs.Empty);
         }
