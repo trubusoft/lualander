@@ -32,7 +32,13 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Update() {
-        _time += Time.deltaTime;
+        TickTimer();
+    }
+
+    private void TickTimer() {
+        if (Lander.instance.GetCurrentState() == Lander.State.Playing) {
+            _time += Time.deltaTime;
+        }
     }
 
     private void LoadCurrentLevel() {

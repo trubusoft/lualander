@@ -248,6 +248,10 @@ public class Lander : MonoBehaviour {
         return _fuelAmount / FuelStartingAmount;
     }
 
+    public State GetCurrentState() {
+        return _state;
+    }
+
     public class OnLandingArgs : EventArgs {
         public float LandingAngle;
         public float LandingSpeed;
