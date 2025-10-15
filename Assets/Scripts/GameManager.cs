@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour {
     private void Start() {
         Lander.instance.OnCoinPickup += LanderCoinPickup;
         Lander.instance.OnLanding += LanderOnLanding;
+        Lander.instance.OnStateChanged += LanderOnStateChanged;
 
         LoadCurrentLevel();
     }
@@ -38,8 +39,23 @@ public class GameManager : MonoBehaviour {
         TickTimer();
     }
 
+    private void LanderOnStateChanged(object sender, Lander.OnStateChangedArgs e) {
+        switch (e.State) {
+            case Lander.State.Ready:
+                _isTimerActive = false;
+                break;
+            case Lander.State.Playing:
+                _isTimerActive = true;
+                cinemachineCamera.Target.TrackingTarget = Lander.instance.transform;
+                break;
+            case Lander.State.GameOver:
+                _isTimerActive = false;
+                break;
+        }
+    }
+
     private void TickTimer() {
-        if (Lander.instance.GetCurrentState() == Lander.State.Playing) {
+        if (_isTimerActive) {
             _time += Time.deltaTime;
         }
     }
