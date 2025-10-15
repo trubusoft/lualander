@@ -4100,6 +4100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   crashAudioClip: {fileID: 8300000, guid: 4c9f9d63f11fa4d4ca1c537cd058256d, type: 3}
   sadTromboneAudioClip: {fileID: 8300000, guid: 01befbcde996789459e5468713dae303, type: 3}
+  fuelPickupAudioClip: {fileID: 8300000, guid: fbd9c5bf252a6c14b9bb3a84dba2510c, type: 3}
+  coinPickupAudioClip: {fileID: 8300000, guid: 4286836a473df634692d7fc2988b47bd, type: 3}
 --- !u!1 &2142092381
 GameObject:
   m_ObjectHideFlags: 0
