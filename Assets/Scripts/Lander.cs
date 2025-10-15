@@ -28,44 +28,40 @@ public class Lander : MonoBehaviour {
     private const float FuelConsumptionRate = 1f;
     private float _fuelAmount;
     private Rigidbody2D _rigidbody2D;
-
     private State _state;
-
     public static Lander instance { get; private set; }
 
-    private bool isMoveable => 0f < _fuelAmount;
-
     private void Awake() {
-        instance = this;
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        Assert.IsNotNull(_rigidbody2D);
+        AssignSingleton();
+        AssignRigidBody();
+        AssignEventCallback();
         SetState(State.Ready);
     }
 
     private void FixedUpdate() {
         HandleIdle();
 
+        bool isUpAction = Keyboard.current.upArrowKey.isPressed;
+        bool isLeftAction = Keyboard.current.leftArrowKey.isPressed;
+        bool isRightAction = Keyboard.current.rightArrowKey.isPressed;
+        bool isActionSupplied = isUpAction || isLeftAction || isRightAction;
+
         switch (_state) {
             case State.Ready:
-                if (Keyboard.current.upArrowKey.isPressed ||
-                    Keyboard.current.upArrowKey.isPressed ||
-                    Keyboard.current.upArrowKey.isPressed) {
+                if (isActionSupplied) {
                     SetState(State.Playing);
                 }
 
                 break;
             case State.Playing:
-                if (isMoveable) {
-                    bool isGoingUp = HandleUpwardThrust();
-                    bool isGoingLeft = HandleLeftRotation();
-                    bool isGoingRight = HandleRightRotation();
-                    if (isGoingUp || isGoingLeft || isGoingRight) {
-                        ConsumeFuel();
-                    }
+                bool isMoveable = 0f < _fuelAmount;
+                if (isMoveable && isActionSupplied) {
+                    HandleUpwardThrust();
+                    HandleLeftRotation();
+                    HandleRightRotation();
+                    ConsumeFuel();
                 }
 
-                break;
-            case State.GameOver:
                 break;
         }
     }
@@ -78,6 +74,35 @@ public class Lander : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D otherCollider2D) {
         HandleFuelCollision(otherCollider2D);
         HandleCoinCollision(otherCollider2D);
+    }
+
+    private void AssignSingleton() {
+        instance = this;
+    }
+
+    private void AssignRigidBody() {
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        Assert.IsNotNull(_rigidbody2D);
+    }
+
+    private void AssignEventCallback() {
+        OnStateChanged += HandleOnStateChanged;
+    }
+
+    private void HandleOnStateChanged(object sender, OnStateChangedArgs e) {
+        switch (_state) {
+            case State.Ready:
+                _fuelAmount = FuelStartingAmount;
+                _rigidbody2D.gravityScale = GravityDisabled;
+                break;
+            case State.Playing:
+                _rigidbody2D.gravityScale = GravityNormal;
+                break;
+            case State.GameOver:
+                _rigidbody2D.gravityScale = GravityNormal;
+                _rigidbody2D.gravityScale = GravityDisabled;
+                break;
+        }
     }
 
     private void HandleLandingPadCollision(Collision2D landingPadCollision) {
@@ -162,20 +187,6 @@ public class Lander : MonoBehaviour {
     private void SetState(State state) {
         _state = state;
         OnStateChanged?.Invoke(this, new OnStateChangedArgs { State = state });
-
-        switch (_state) {
-            case State.Ready:
-                _fuelAmount = FuelStartingAmount;
-                _rigidbody2D.gravityScale = GravityDisabled;
-                break;
-            case State.Playing:
-                _rigidbody2D.gravityScale = GravityNormal;
-                break;
-            case State.GameOver:
-                _rigidbody2D.gravityScale = GravityNormal;
-                _rigidbody2D.gravityScale = GravityDisabled;
-                break;
-        }
     }
 
     private static float CalculateLandingSpeed(Collision2D landingPadCollision) {
@@ -202,34 +213,25 @@ public class Lander : MonoBehaviour {
         OnIdle?.Invoke(this, EventArgs.Empty);
     }
 
-    private bool HandleUpwardThrust() {
+    private void HandleUpwardThrust() {
         if (Keyboard.current.upArrowKey.isPressed) {
             _rigidbody2D.AddForce(transform.up * (ThrustSpeed * Time.deltaTime), ForceMode2D.Force);
             OnUpForce?.Invoke(this, EventArgs.Empty);
-            return true;
         }
-
-        return false;
     }
 
-    private bool HandleLeftRotation() {
+    private void HandleLeftRotation() {
         if (Keyboard.current.leftArrowKey.isPressed) {
             _rigidbody2D.AddTorque(TorqueSpeed * Time.deltaTime);
             OnLeftForce?.Invoke(this, EventArgs.Empty);
-            return true;
         }
-
-        return false;
     }
 
-    private bool HandleRightRotation() {
+    private void HandleRightRotation() {
         if (Keyboard.current.rightArrowKey.isPressed) {
             _rigidbody2D.AddTorque(-TorqueSpeed * Time.deltaTime);
             OnRightForce?.Invoke(this, EventArgs.Empty);
-            return true;
         }
-
-        return false;
     }
 
     public float GetSpeedX() {
@@ -246,6 +248,10 @@ public class Lander : MonoBehaviour {
 
     public float GetFuelNormalized() {
         return _fuelAmount / FuelStartingAmount;
+    }
+
+    public State GetCurrentState() {
+        return _state;
     }
 
     public class OnLandingArgs : EventArgs {

@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     private static int _levelNumber = 1;
     [SerializeField] private List<Level> levels;
+    [SerializeField] private CinemachineCamera cinemachineCamera;
+    private bool _isTimerActive;
 
     private int _score;
     private float _time;
@@ -27,12 +30,35 @@ public class GameManager : MonoBehaviour {
     private void Start() {
         Lander.instance.OnCoinPickup += LanderCoinPickup;
         Lander.instance.OnLanding += LanderOnLanding;
+        Lander.instance.OnStateChanged += LanderOnStateChanged;
 
         LoadCurrentLevel();
     }
 
     private void Update() {
-        _time += Time.deltaTime;
+        TickTimer();
+    }
+
+    private void LanderOnStateChanged(object sender, Lander.OnStateChangedArgs e) {
+        switch (e.State) {
+            case Lander.State.Ready:
+                _isTimerActive = false;
+                break;
+            case Lander.State.Playing:
+                _isTimerActive = true;
+                cinemachineCamera.Target.TrackingTarget = Lander.instance.transform;
+                CinemachineCameraZoom.instance.ResetOrthographicSize();
+                break;
+            case Lander.State.GameOver:
+                _isTimerActive = false;
+                break;
+        }
+    }
+
+    private void TickTimer() {
+        if (_isTimerActive) {
+            _time += Time.deltaTime;
+        }
     }
 
     private void LoadCurrentLevel() {
@@ -44,6 +70,11 @@ public class GameManager : MonoBehaviour {
                 // set lander to starting position
                 Vector3 landerStartingPosition = instantiatedLevel.GetLanderStartingPosition();
                 Lander.instance.transform.position = landerStartingPosition;
+
+                // set camera to starting position
+                cinemachineCamera.Target.TrackingTarget = instantiatedLevel.GetCameraStartingPosition();
+                CinemachineCameraZoom.instance.SetOrthographicSize(
+                    instantiatedLevel.GetZoomedOutOrthographicSize());
             }
         }
     }
