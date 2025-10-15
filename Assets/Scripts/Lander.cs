@@ -36,10 +36,9 @@ public class Lander : MonoBehaviour {
     private bool isMoveable => 0f < _fuelAmount;
 
     private void Awake() {
-        instance = this;
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        Assert.IsNotNull(_rigidbody2D);
-        OnStateChanged += HandleOnStateChanged;
+        AssignSingleton();
+        AssignRigidBody();
+        AssignEventCallback();
         SetState(State.Ready);
     }
 
@@ -79,6 +78,19 @@ public class Lander : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D otherCollider2D) {
         HandleFuelCollision(otherCollider2D);
         HandleCoinCollision(otherCollider2D);
+    }
+
+    private void AssignSingleton() {
+        instance = this;
+    }
+
+    private void AssignRigidBody() {
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        Assert.IsNotNull(_rigidbody2D);
+    }
+
+    private void AssignEventCallback() {
+        OnStateChanged += HandleOnStateChanged;
     }
 
     private void HandleOnStateChanged(object sender, OnStateChangedArgs e) {
