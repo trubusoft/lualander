@@ -932,7 +932,7 @@ GameObject:
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1421,7 +1421,7 @@ GameObject:
   - component: {fileID: 619394802}
   - component: {fileID: 619394801}
   m_Layer: 0
-  m_Name: Global Light 2D
+  m_Name: GlobalLight2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1918,7 +1918,7 @@ GameObject:
   - component: {fileID: 737213175}
   - component: {fileID: 737213174}
   m_Layer: 0
-  m_Name: Post Processing
+  m_Name: PostProcessing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2204,7 +2204,7 @@ GameObject:
   - component: {fileID: 897569348}
   - component: {fileID: 897569347}
   m_Layer: 0
-  m_Name: Cinemachine Camera
+  m_Name: CinemachineCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2450,7 +2450,7 @@ GameObject:
   - component: {fileID: 946238074}
   - component: {fileID: 946238075}
   m_Layer: 0
-  m_Name: Cinemachine Camera Zoom
+  m_Name: CinemachineCameraZoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
