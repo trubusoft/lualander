@@ -44,8 +44,8 @@ public class Lander : MonoBehaviour {
         switch (_state) {
             case State.Ready:
                 if (Keyboard.current.upArrowKey.isPressed ||
-                    Keyboard.current.upArrowKey.isPressed ||
-                    Keyboard.current.upArrowKey.isPressed) {
+                    Keyboard.current.leftAltKey.isPressed ||
+                    Keyboard.current.rightAltKey.isPressed) {
                     SetState(State.Playing);
                 }
 
