@@ -75,6 +75,8 @@ public class GameManager : MonoBehaviour {
                 cinemachineCamera.Target.TrackingTarget = instantiatedLevel.GetCameraStartingPosition();
                 CinemachineCameraZoom.instance.SetOrthographicSize(
                     instantiatedLevel.GetZoomedOutOrthographicSize());
+
+                Input.instance.EnableInputAction();
             }
         }
     }
@@ -104,11 +106,13 @@ public class GameManager : MonoBehaviour {
     }
 
     public void GoToNextLevel() {
+        Input.instance.DisableInputAction();
         _levelNumber++;
         SceneManager.LoadScene(0);
     }
 
     public void RetryLevel() {
+        Input.instance.DisableInputAction();
         SceneManager.LoadScene(0);
     }
 }

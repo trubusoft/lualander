@@ -6,9 +6,7 @@ public class Input : MonoBehaviour {
 
     private void Awake() {
         instance = this;
-
         _inputActions = new InputActions();
-        _inputActions.Enable();
     }
 
     public bool IsLanderUp() {
@@ -21,5 +19,13 @@ public class Input : MonoBehaviour {
 
     public bool IsLanderRight() {
         return _inputActions.Lander.Right.IsPressed();
+    }
+
+    public void EnableInputAction() {
+        _inputActions.Enable();
+    }
+
+    public void DisableInputAction() {
+        _inputActions.Disable();
     }
 }
