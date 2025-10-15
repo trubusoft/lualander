@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     private static int _levelNumber = 1;
@@ -32,11 +31,16 @@ public class GameManager : MonoBehaviour {
         Lander.instance.OnLanding += LanderOnLanding;
         Lander.instance.OnStateChanged += LanderOnStateChanged;
 
-        LoadCurrentLevel();
+        Level currentLevel = GetCurrentLevel();
+        LoadCurrentLevel(currentLevel);
     }
 
     private void Update() {
         TickTimer();
+    }
+
+    private void OnDestroy() {
+        Input.instance.DisableInputAction();
     }
 
     private void LanderOnStateChanged(object sender, Lander.OnStateChangedArgs e) {
@@ -61,24 +65,29 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private void LoadCurrentLevel() {
+    private Level GetCurrentLevel() {
         foreach (Level level in levels) {
             if (level.GetLevelNumber() == _levelNumber) {
-                // load level
-                Level instantiatedLevel = Instantiate(level, Vector3.zero, Quaternion.identity);
-
-                // set lander to starting position
-                Vector3 landerStartingPosition = instantiatedLevel.GetLanderStartingPosition();
-                Lander.instance.transform.position = landerStartingPosition;
-
-                // set camera to starting position
-                cinemachineCamera.Target.TrackingTarget = instantiatedLevel.GetCameraStartingPosition();
-                CinemachineCameraZoom.instance.SetOrthographicSize(
-                    instantiatedLevel.GetZoomedOutOrthographicSize());
-
-                Input.instance.EnableInputAction();
+                return level;
             }
         }
+
+        return null;
+    }
+
+    private void LoadCurrentLevel(Level currentLevel) {
+        Level instantiatedLevel = Instantiate(currentLevel, Vector3.zero, Quaternion.identity);
+
+        // set lander to starting position
+        Vector3 landerStartingPosition = instantiatedLevel.GetLanderStartingPosition();
+        Lander.instance.transform.position = landerStartingPosition;
+
+        // set camera to starting position
+        cinemachineCamera.Target.TrackingTarget = instantiatedLevel.GetCameraStartingPosition();
+        CinemachineCameraZoom.instance.SetOrthographicSize(
+            instantiatedLevel.GetZoomedOutOrthographicSize());
+
+        Input.instance.EnableInputAction();
     }
 
     private void LanderOnLanding(object sender, Lander.OnLandingArgs e) {
@@ -106,13 +115,18 @@ public class GameManager : MonoBehaviour {
     }
 
     public void GoToNextLevel() {
-        Input.instance.DisableInputAction();
         _levelNumber++;
-        SceneManager.LoadScene(0);
+
+        Level level = GetCurrentLevel();
+        if (level != null) {
+            // game still has more level
+            SceneLoader.LoadScene(SceneLoader.Scene.Game);
+        } else {
+            SceneLoader.LoadScene(SceneLoader.Scene.Menu);
+        }
     }
 
     public void RetryLevel() {
-        Input.instance.DisableInputAction();
-        SceneManager.LoadScene(0);
+        SceneLoader.LoadScene(SceneLoader.Scene.Game);
     }
 }
