@@ -39,6 +39,7 @@ public class Lander : MonoBehaviour {
         instance = this;
         _rigidbody2D = GetComponent<Rigidbody2D>();
         Assert.IsNotNull(_rigidbody2D);
+        OnStateChanged += HandleOnStateChanged;
         SetState(State.Ready);
     }
 
@@ -78,6 +79,22 @@ public class Lander : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D otherCollider2D) {
         HandleFuelCollision(otherCollider2D);
         HandleCoinCollision(otherCollider2D);
+    }
+
+    private void HandleOnStateChanged(object sender, OnStateChangedArgs e) {
+        switch (_state) {
+            case State.Ready:
+                _fuelAmount = FuelStartingAmount;
+                _rigidbody2D.gravityScale = GravityDisabled;
+                break;
+            case State.Playing:
+                _rigidbody2D.gravityScale = GravityNormal;
+                break;
+            case State.GameOver:
+                _rigidbody2D.gravityScale = GravityNormal;
+                _rigidbody2D.gravityScale = GravityDisabled;
+                break;
+        }
     }
 
     private void HandleLandingPadCollision(Collision2D landingPadCollision) {
@@ -162,20 +179,6 @@ public class Lander : MonoBehaviour {
     private void SetState(State state) {
         _state = state;
         OnStateChanged?.Invoke(this, new OnStateChangedArgs { State = state });
-
-        switch (_state) {
-            case State.Ready:
-                _fuelAmount = FuelStartingAmount;
-                _rigidbody2D.gravityScale = GravityDisabled;
-                break;
-            case State.Playing:
-                _rigidbody2D.gravityScale = GravityNormal;
-                break;
-            case State.GameOver:
-                _rigidbody2D.gravityScale = GravityNormal;
-                _rigidbody2D.gravityScale = GravityDisabled;
-                break;
-        }
     }
 
     private static float CalculateLandingSpeed(Collision2D landingPadCollision) {
