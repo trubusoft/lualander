@@ -41,28 +41,27 @@ public class Lander : MonoBehaviour {
     private void FixedUpdate() {
         HandleIdle();
 
+        bool isUpAction = Keyboard.current.upArrowKey.isPressed;
+        bool isLeftAction = Keyboard.current.leftArrowKey.isPressed;
+        bool isRightAction = Keyboard.current.rightArrowKey.isPressed;
+        bool isActionSupplied = isUpAction || isLeftAction || isRightAction;
+
         switch (_state) {
             case State.Ready:
-                if (Keyboard.current.upArrowKey.isPressed ||
-                    Keyboard.current.leftAltKey.isPressed ||
-                    Keyboard.current.rightAltKey.isPressed) {
+                if (isActionSupplied) {
                     SetState(State.Playing);
                 }
 
                 break;
             case State.Playing:
                 bool isMoveable = 0f < _fuelAmount;
-                if (isMoveable) {
-                    bool isGoingUp = HandleUpwardThrust();
-                    bool isGoingLeft = HandleLeftRotation();
-                    bool isGoingRight = HandleRightRotation();
-                    if (isGoingUp || isGoingLeft || isGoingRight) {
-                        ConsumeFuel();
-                    }
+                if (isMoveable && isActionSupplied) {
+                    HandleUpwardThrust();
+                    HandleLeftRotation();
+                    HandleRightRotation();
+                    ConsumeFuel();
                 }
 
-                break;
-            case State.GameOver:
                 break;
         }
     }
@@ -214,34 +213,25 @@ public class Lander : MonoBehaviour {
         OnIdle?.Invoke(this, EventArgs.Empty);
     }
 
-    private bool HandleUpwardThrust() {
+    private void HandleUpwardThrust() {
         if (Keyboard.current.upArrowKey.isPressed) {
             _rigidbody2D.AddForce(transform.up * (ThrustSpeed * Time.deltaTime), ForceMode2D.Force);
             OnUpForce?.Invoke(this, EventArgs.Empty);
-            return true;
         }
-
-        return false;
     }
 
-    private bool HandleLeftRotation() {
+    private void HandleLeftRotation() {
         if (Keyboard.current.leftArrowKey.isPressed) {
             _rigidbody2D.AddTorque(TorqueSpeed * Time.deltaTime);
             OnLeftForce?.Invoke(this, EventArgs.Empty);
-            return true;
         }
-
-        return false;
     }
 
-    private bool HandleRightRotation() {
+    private void HandleRightRotation() {
         if (Keyboard.current.rightArrowKey.isPressed) {
             _rigidbody2D.AddTorque(-TorqueSpeed * Time.deltaTime);
             OnRightForce?.Invoke(this, EventArgs.Empty);
-            return true;
         }
-
-        return false;
     }
 
     public float GetSpeedX() {
