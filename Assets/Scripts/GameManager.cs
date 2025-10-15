@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     private static int _levelNumber = 1;
     [SerializeField] private List<Level> levels;
+    [SerializeField] private CinemachineCamera cinemachineCamera;
+    private bool _isTimerActive;
 
     private int _score;
     private float _time;
@@ -50,6 +53,9 @@ public class GameManager : MonoBehaviour {
                 // set lander to starting position
                 Vector3 landerStartingPosition = instantiatedLevel.GetLanderStartingPosition();
                 Lander.instance.transform.position = landerStartingPosition;
+
+                // set camera to starting position
+                cinemachineCamera.Target.TrackingTarget = instantiatedLevel.GetCameraStartingPosition();
             }
         }
     }
