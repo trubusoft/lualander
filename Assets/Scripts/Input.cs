@@ -1,11 +1,25 @@
 using UnityEngine;
 
 public class Input : MonoBehaviour {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start() {
+    private InputActions _inputActions;
+    public static Input instance { get; private set; }
+
+    private void Awake() {
+        instance = this;
+
+        _inputActions = new InputActions();
+        _inputActions.Enable();
     }
 
-    // Update is called once per frame
-    void Update() {
+    public bool IsLanderUp() {
+        return _inputActions.Lander.Up.IsPressed();
+    }
+
+    public bool IsLanderLeft() {
+        return _inputActions.Lander.Left.IsPressed();
+    }
+
+    public bool IsLanderRight() {
+        return _inputActions.Lander.Right.IsPressed();
     }
 }
