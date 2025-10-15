@@ -28,12 +28,8 @@ public class Lander : MonoBehaviour {
     private const float FuelConsumptionRate = 1f;
     private float _fuelAmount;
     private Rigidbody2D _rigidbody2D;
-
     private State _state;
-
     public static Lander instance { get; private set; }
-
-    private bool isMoveable => 0f < _fuelAmount;
 
     private void Awake() {
         AssignSingleton();
@@ -55,6 +51,7 @@ public class Lander : MonoBehaviour {
 
                 break;
             case State.Playing:
+                bool isMoveable = 0f < _fuelAmount;
                 if (isMoveable) {
                     bool isGoingUp = HandleUpwardThrust();
                     bool isGoingLeft = HandleLeftRotation();
