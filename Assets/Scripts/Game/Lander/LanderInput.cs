@@ -7,23 +7,23 @@ public class LanderInput : MonoBehaviour {
         _landerInputActions = new LanderInputActions();
     }
 
-    public bool IsLanderUp() {
+    public bool IsThrusting() {
         return _landerInputActions.Lander.Up.IsPressed();
     }
 
-    public bool IsLanderLeft() {
+    public bool IsRotatingLeft() {
         return _landerInputActions.Lander.Left.IsPressed();
     }
 
-    public bool IsLanderRight() {
+    public bool IsRotatingRight() {
         return _landerInputActions.Lander.Right.IsPressed();
     }
 
-    public void EnableInputAction() {
+    public void EnableInput() {
         _landerInputActions.Enable();
     }
 
-    public void DisableInputAction() {
+    public void DisableInput() {
         _landerInputActions.Disable();
     }
 }
