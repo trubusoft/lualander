@@ -4102,6 +4102,9 @@ MonoBehaviour:
   sadTromboneAudioClip: {fileID: 8300000, guid: 01befbcde996789459e5468713dae303, type: 3}
   fuelPickupAudioClip: {fileID: 8300000, guid: fbd9c5bf252a6c14b9bb3a84dba2510c, type: 3}
   coinPickupAudioClip: {fileID: 8300000, guid: 4286836a473df634692d7fc2988b47bd, type: 3}
+  landingSuccessAudioClip: {fileID: 8300000, guid: 6d68f74438f613b45b2181d4e917474c, type: 3}
+  thrusterAudioClip: {fileID: 8300000, guid: 484dfe2ec7cb08047b216f2dd52796d5, type: 3}
+  musicAudioClip: {fileID: 8300000, guid: db7efd9f94a5d1e45bb8f5e1c60a7ba1, type: 3}
 --- !u!1 &2142092381
 GameObject:
   m_ObjectHideFlags: 0

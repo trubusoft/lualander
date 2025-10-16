@@ -4,9 +4,11 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour {
     [SerializeField] private AudioClip crashAudioClip;
     [SerializeField] private AudioClip sadTromboneAudioClip;
-
     [SerializeField] private AudioClip fuelPickupAudioClip;
     [SerializeField] private AudioClip coinPickupAudioClip;
+    [SerializeField] private AudioClip landingSuccessAudioClip;
+    [SerializeField] private AudioClip thrusterAudioClip;
+    [SerializeField] private AudioClip musicAudioClip;
 
     void Start() {
         Lander.instance.OnLanding += LanderOnLanding;
@@ -33,6 +35,9 @@ public class SoundManager : MonoBehaviour {
 
     private void LanderOnLanding(object sender, Lander.OnLandingArgs e) {
         switch (e.LandingType) {
+            case Lander.LandingType.Success:
+                AudioSource.PlayClipAtPoint(landingSuccessAudioClip, GetPlayPoint());
+                break;
             case Lander.LandingType.LandedOnTerrain:
             case Lander.LandingType.LandedTooFast:
             case Lander.LandingType.LandedTooSteep:
