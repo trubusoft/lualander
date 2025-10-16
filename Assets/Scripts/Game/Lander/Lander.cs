@@ -153,6 +153,7 @@ public class Lander : MonoBehaviour {
 
     private void HandleFuelCollision(Collider2D fuelCollider) {
         if (fuelCollider.gameObject.TryGetComponent(out Fuel fuel)) {
+            OnFuelPickup?.Invoke(this, EventArgs.Empty);
             // refill fuel
             _fuelAmount += FuelPickupAmount;
             _fuelAmount = Mathf.Clamp(_fuelAmount, 0, FuelStartingAmount);
@@ -180,6 +181,7 @@ public class Lander : MonoBehaviour {
     public event EventHandler OnRightForce;
     public event EventHandler OnLeftForce;
     public event EventHandler OnCoinPickup;
+    public event EventHandler OnFuelPickup;
     public event EventHandler<OnLandingArgs> OnLanding;
     public event EventHandler<OnStateChangedArgs> OnStateChanged;
 

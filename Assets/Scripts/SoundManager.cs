@@ -4,38 +4,45 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour {
     [SerializeField] private AudioClip crashAudioClip;
     [SerializeField] private AudioClip sadTromboneAudioClip;
-
     [SerializeField] private AudioClip fuelPickupAudioClip;
     [SerializeField] private AudioClip coinPickupAudioClip;
+    [SerializeField] private AudioClip landingSuccessAudioClip;
+    [SerializeField] private AudioClip thrusterAudioClip;
+    [SerializeField] private AudioClip musicAudioClip;
 
     void Start() {
         Lander.instance.OnLanding += LanderOnLanding;
         Lander.instance.OnCoinPickup += LanderOnCoinPickup;
-        // todo
-        // Lander.instance.OnFuelPickup += LanderOnFuelPickup();
+        Lander.instance.OnFuelPickup += LanderOnFuelPickup;
+    }
+
+    private Vector3 GetPlayPoint() {
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null) {
+            return mainCamera.transform.position;
+        }
+
+        return Vector3.zero;
     }
 
     private void LanderOnCoinPickup(object sender, EventArgs e) {
-        AudioSource.PlayClipAtPoint(coinPickupAudioClip, Camera.main.transform.position);
+        AudioSource.PlayClipAtPoint(coinPickupAudioClip, GetPlayPoint());
     }
 
-    // todo
-    // private void LanderOnFuelPickup(object sender, EventArgs e) {
-    //     AudioSource.PlayClipAtPoint(fuelPickupAudioClip, Camera.main.transform.position);
-    // }
+    private void LanderOnFuelPickup(object sender, EventArgs e) {
+        AudioSource.PlayClipAtPoint(fuelPickupAudioClip, GetPlayPoint());
+    }
 
     private void LanderOnLanding(object sender, Lander.OnLandingArgs e) {
         switch (e.LandingType) {
+            case Lander.LandingType.Success:
+                AudioSource.PlayClipAtPoint(landingSuccessAudioClip, GetPlayPoint());
+                break;
             case Lander.LandingType.LandedOnTerrain:
             case Lander.LandingType.LandedTooFast:
             case Lander.LandingType.LandedTooSteep:
-                Camera mainCamera = Camera.main;
-                if (mainCamera == null) {
-                    break;
-                }
-
-                AudioSource.PlayClipAtPoint(crashAudioClip, mainCamera.transform.position);
-                AudioSource.PlayClipAtPoint(sadTromboneAudioClip, mainCamera.transform.position);
+                AudioSource.PlayClipAtPoint(crashAudioClip, GetPlayPoint());
+                AudioSource.PlayClipAtPoint(sadTromboneAudioClip, GetPlayPoint());
                 break;
         }
     }
