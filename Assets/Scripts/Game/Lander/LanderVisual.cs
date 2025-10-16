@@ -29,10 +29,10 @@ public class LanderVisual : MonoBehaviour {
     }
 
     private void HandleCrash(Lander.OnLandingArgs e) {
-        switch (e.LandingType) {
-            case Lander.LandingType.LandedOnTerrain:
-            case Lander.LandingType.LandedTooFast:
-            case Lander.LandingType.LandedTooSteep:
+        switch (e.LandingStatus) {
+            case Lander.LandingStatus.LandedOnTerrain:
+            case Lander.LandingStatus.LandedTooFast:
+            case Lander.LandingStatus.LandedTooSteep:
                 Instantiate(landerExplosionVfx, transform.position, Quaternion.identity);
                 _lander.gameObject.SetActive(false);
                 break;
