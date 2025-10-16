@@ -21,15 +21,21 @@ public class LanderAudio : MonoBehaviour {
     }
 
     private void LanderOnRightForce(object sender, EventArgs e) {
-        thrusterAudioSource.Play();
+        if (!thrusterAudioSource.isPlaying) {
+            thrusterAudioSource.Play();
+        }
     }
 
     private void LanderOnLeftForce(object sender, EventArgs e) {
-        thrusterAudioSource.Play();
+        if (!thrusterAudioSource.isPlaying) {
+            thrusterAudioSource.Play();
+        }
     }
 
     private void LanderOnUpForce(object sender, EventArgs e) {
-        thrusterAudioSource.Play();
+        if (!thrusterAudioSource.isPlaying) {
+            thrusterAudioSource.Play();
+        }
     }
 
     private void LanderOnIdle(object sender, EventArgs e) {
