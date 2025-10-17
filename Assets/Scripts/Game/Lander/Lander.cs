@@ -33,7 +33,9 @@ public class Lander : MonoBehaviour {
     private void Awake() {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _landerInput = GetComponent<LanderInput>();
+    }
 
+    private void Start() {
         SetState(State.Ready);
     }
 
