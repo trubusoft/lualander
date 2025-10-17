@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class Menu : MonoBehaviour {
     [SerializeField] private Button playButton;
     [SerializeField] private Button quitButton;
-    [SerializeField] private SceneLoader.Scene firstLevel;
+    [SerializeField] private Scene firstLevel;
 
     private void Awake() {
         playButton.onClick.AddListener(() => { SceneLoader.LoadScene(firstLevel); });
