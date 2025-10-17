@@ -34,8 +34,6 @@ public class Lander : MonoBehaviour {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _landerInput = GetComponent<LanderInput>();
 
-        OnStateChanged += HandleOnStateChanged;
-
         SetState(State.Ready);
     }
 
@@ -81,11 +79,12 @@ public class Lander : MonoBehaviour {
         HandleCoinCollision(otherCollider2D);
     }
 
-    private void HandleOnStateChanged(object sender, OnStateChangedArgs e) {
+    private void HandleStateChange() {
         switch (_state) {
             case State.Ready:
                 _fuelAmount = FuelStartingAmount;
                 _rigidbody2D.gravityScale = GravityDisabled;
+                _landerInput.EnableInput();
                 break;
             case State.Playing:
                 _rigidbody2D.gravityScale = GravityNormal;
@@ -93,6 +92,7 @@ public class Lander : MonoBehaviour {
             case State.GameOver:
                 _rigidbody2D.gravityScale = GravityNormal;
                 _rigidbody2D.gravityScale = GravityDisabled;
+                _landerInput.DisableInput();
                 break;
         }
     }
@@ -180,6 +180,7 @@ public class Lander : MonoBehaviour {
 
     private void SetState(State state) {
         _state = state;
+        HandleStateChange();
         OnStateChanged?.Invoke(this, new OnStateChangedArgs { State = state });
     }
 
