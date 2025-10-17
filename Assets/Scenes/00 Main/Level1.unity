@@ -357,6 +357,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FuelUI
       objectReference: {fileID: 0}
+    - target: {fileID: 4298466795477394296, guid: 4f0ad2a656ba8294595415d774b96612, type: 3}
+      propertyPath: landerGameObject
+      value: 
+      objectReference: {fileID: 1915463710}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -750,6 +754,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LandedUI
       objectReference: {fileID: 0}
+    - target: {fileID: 6003647951288743037, guid: ee4041f7683e45546afdcaeabd79a0bc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6303296162154864721, guid: ee4041f7683e45546afdcaeabd79a0bc, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -846,6 +854,7 @@ GameObject:
   - component: {fileID: 882100497}
   - component: {fileID: 882100495}
   - component: {fileID: 882100496}
+  - component: {fileID: 882100498}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -942,6 +951,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &882100498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882100494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f46af0bcb5986714aacc2aa24e4b4cac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CinemachineTracker
+  landerGameObject: {fileID: 1915463710}
 --- !u!1001 &1030613641
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1103,6 +1125,10 @@ PrefabInstance:
     - target: {fileID: 2875396624349702606, guid: 42f06bf1088997a42afdd059396937a9, type: 3}
       propertyPath: m_Name
       value: StatsUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 2875396624349702606, guid: 42f06bf1088997a42afdd059396937a9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1845,51 +1871,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4803355283159904456, guid: be277631864e98649a218550af2d969f, type: 3}
   m_PrefabInstance: {fileID: 1689884302}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1807903656
+--- !u!1 &1915463710 stripped
 GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2566403898075136042, guid: 825f083af23482a4991a50e39b44c337, type: 3}
+  m_PrefabInstance: {fileID: 1030613641}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1807903658}
-  - component: {fileID: 1807903657}
-  m_Layer: 0
-  m_Name: CinemachineCameraZoom
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1807903657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1807903656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe1494a2fa1da5f449a9d2f78679986f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CinemachineCameraZoom
-  cinemachineCamera: {fileID: 882100495}
---- !u!4 &1807903658
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1807903656}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 819.6655, y: 565.3412, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2016797091
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1963,6 +1949,10 @@ PrefabInstance:
     - target: {fileID: 5864458151374918549, guid: 4047d0040ddbc3745b067029063c2e2f, type: 3}
       propertyPath: m_Name
       value: InputUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5864458151374918549, guid: 4047d0040ddbc3745b067029063c2e2f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6145810301512796089, guid: 4047d0040ddbc3745b067029063c2e2f, type: 3}
       propertyPath: m_Pivot.x
@@ -2229,6 +2219,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1484597018}
     - target: {fileID: 1576438698543466870, guid: 2273c42a33ea32d4292d5a474856761a, type: 3}
+      propertyPath: landerGameObject
+      value: 
+      objectReference: {fileID: 1915463710}
+    - target: {fileID: 1576438698543466870, guid: 2273c42a33ea32d4292d5a474856761a, type: 3}
       propertyPath: statsUIGameObject
       value: 
       objectReference: {fileID: 1414887006}
@@ -2291,7 +2285,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 232413859}
   - {fileID: 882100497}
-  - {fileID: 1807903658}
   - {fileID: 18512962}
   - {fileID: 691279444}
   - {fileID: 4593628585490873557}
