@@ -15,13 +15,12 @@ public class LandedUI : MonoBehaviour {
     private Action _nextButtonAction;
 
     private void Awake() {
-        _lander = GetComponentInParent<Lander>();
         _levelManager = GetComponentInParent<LevelManager>();
-
         nextButton.onClick.AddListener(() => { _nextButtonAction(); });
     }
 
     private void Start() {
+        _lander = GetComponentInParent<Lander>();
         _lander.OnLanding += LanderOnLanding;
         Hide();
     }
