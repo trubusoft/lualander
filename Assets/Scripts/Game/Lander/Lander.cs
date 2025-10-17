@@ -67,6 +67,10 @@ public class Lander : MonoBehaviour {
         }
     }
 
+    private void OnDestroy() {
+        _landerInput.DisableInput();
+    }
+
     private void OnCollisionEnter2D(Collision2D otherCollision2D) {
         HandleTerrainCollision(otherCollision2D);
         HandleLandingPadCollision(otherCollision2D);
