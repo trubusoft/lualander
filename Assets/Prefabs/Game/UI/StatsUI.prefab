@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 6275820955449705637}
   - component: {fileID: 1081955687283152929}
   - component: {fileID: 6201367290501276928}
+  - component: {fileID: 1665345387243786981}
   m_Layer: 5
   m_Name: StatsUI
   m_TagString: Untagged
@@ -335,6 +336,24 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1665345387243786981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2875396624349702606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3de3597bbd8d4834687963974d419cbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatsUI
+  statsTextMeshUGUI: {fileID: 4375544584902061832}
+  speedLeftArrowGameObject: {fileID: 2148010816724113607}
+  speedRightArrowGameObject: {fileID: 7420716836589578660}
+  speedUpArrowGameObject: {fileID: 9203592869865408514}
+  speedDownArrowGameObject: {fileID: 4098240877004938999}
+  fuelImage: {fileID: 416488420102058572}
 --- !u!1 &4098240877004938999
 GameObject:
   m_ObjectHideFlags: 0
