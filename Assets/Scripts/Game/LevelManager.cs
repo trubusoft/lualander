@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour {
     [SerializeField] private Scene nextScene;
     [SerializeField] private GameObject landedUIGameObject;
     [SerializeField] private GameObject statsUIGameObject;
+    [SerializeField] private GameObject landerGameObject;
 
     private bool _isLevelTimerActive;
     private LandedUI _landedUI;
@@ -19,20 +20,17 @@ public class LevelManager : MonoBehaviour {
     private StatsUI _statsUI;
 
     private void Start() {
+        _lander = landerGameObject.GetComponent<Lander>();
         _landedUI = landedUIGameObject.GetComponent<LandedUI>();
         _statsUI = statsUIGameObject.GetComponent<StatsUI>();
 
+        Assert.IsNotNull(_lander);
         Assert.IsNotNull(_landedUI);
         Assert.IsNotNull(_statsUI);
 
-        _landedUI.Hide();
-        _statsUI.Hide();
-
-        // _lander = GetComponentInParent<Lander>();
-        // Assert.IsNotNull(_lander);
-        // _lander.OnCoinPickup += LanderCoinPickup;
-        // _lander.OnLanding += LanderOnLanding;
-        // _lander.OnStateChanged += LanderOnStateChanged;
+        _lander.OnCoinPickup += LanderCoinPickup;
+        _lander.OnLanding += LanderOnLanding;
+        _lander.OnStateChanged += LanderOnStateChanged;
     }
 
     private void Update() {
