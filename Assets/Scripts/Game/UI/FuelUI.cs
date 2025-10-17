@@ -2,11 +2,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class FuelUI : MonoBehaviour {
-    [SerializeField] private Image fuelBar;
+    [SerializeField] private GameObject landerGameObject;
+    private Image _fuelBarImage;
     private Lander _lander;
 
     private void Awake() {
-        _lander = GetComponentInParent<Lander>();
+        _fuelBarImage = GetComponentInChildren<Image>();
+    }
+
+    private void Start() {
+        _lander = landerGameObject.GetComponent<Lander>();
     }
 
     private void Update() {
@@ -14,6 +19,6 @@ public class FuelUI : MonoBehaviour {
     }
 
     private void UpdateFuelBar() {
-        fuelBar.fillAmount = _lander.GetFuelNormalized();
+        _fuelBarImage.fillAmount = _lander.GetFuelNormalized();
     }
 }
