@@ -1,23 +1,38 @@
 using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class LevelManager : MonoBehaviour {
     private const int CoinPickupScore = 100;
     [SerializeField] private int levelNumber;
     [SerializeField] private Scene currentScene;
     [SerializeField] private Scene nextScene;
+    [SerializeField] private GameObject landedUIGameObject;
+    [SerializeField] private GameObject statsUIGameObject;
 
     private bool _isLevelTimerActive;
+    private LandedUI _landedUI;
     private Lander _lander;
     private int _levelScore;
+
     private float _levelTimer;
+    private StatsUI _statsUI;
 
     private void Start() {
-        _lander = GetComponent<Lander>();
+        _landedUI = landedUIGameObject.GetComponent<LandedUI>();
+        _statsUI = statsUIGameObject.GetComponent<StatsUI>();
 
-        _lander.OnCoinPickup += LanderCoinPickup;
-        _lander.OnLanding += LanderOnLanding;
-        _lander.OnStateChanged += LanderOnStateChanged;
+        Assert.IsNotNull(_landedUI);
+        Assert.IsNotNull(_statsUI);
+
+        _landedUI.Hide();
+        _statsUI.Hide();
+
+        // _lander = GetComponentInParent<Lander>();
+        // Assert.IsNotNull(_lander);
+        // _lander.OnCoinPickup += LanderCoinPickup;
+        // _lander.OnLanding += LanderOnLanding;
+        // _lander.OnStateChanged += LanderOnStateChanged;
     }
 
     private void Update() {
