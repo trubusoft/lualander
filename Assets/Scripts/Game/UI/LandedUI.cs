@@ -11,12 +11,13 @@ public class LandedUI : MonoBehaviour {
     private GameManager _gameManager;
 
     private Lander _lander;
+    private LevelManager _levelManager;
 
     private Action _nextButtonAction;
 
     private void Awake() {
         _lander = GetComponentInParent<Lander>();
-        _gameManager = GetComponentInParent<GameManager>();
+        _levelManager = GetComponentInParent<LevelManager>();
 
         nextButton.onClick.AddListener(() => { _nextButtonAction(); });
     }
@@ -31,22 +32,22 @@ public class LandedUI : MonoBehaviour {
             case Lander.LandingStatus.Success:
                 titleTextMesh.text = "Successful Landing";
                 nextButtonTextMesh.text = "Next Level";
-                _nextButtonAction = _gameManager.GoToNextLevel;
+                _nextButtonAction = _levelManager.GoToNextLevel;
                 break;
             case Lander.LandingStatus.LandedTooFast:
                 titleTextMesh.text = "Landed too Fast";
                 nextButtonTextMesh.text = "Retry";
-                _nextButtonAction = _gameManager.RetryLevel;
+                _nextButtonAction = _levelManager.RetryLevel;
                 break;
             case Lander.LandingStatus.LandedTooSteep:
                 titleTextMesh.text = "Landed too Steep";
                 nextButtonTextMesh.text = "Retry";
-                _nextButtonAction = _gameManager.RetryLevel;
+                _nextButtonAction = _levelManager.RetryLevel;
                 break;
             case Lander.LandingStatus.LandedOnTerrain:
                 titleTextMesh.text = "Crashed";
                 nextButtonTextMesh.text = "Retry";
-                _nextButtonAction = _gameManager.RetryLevel;
+                _nextButtonAction = _levelManager.RetryLevel;
                 break;
         }
 
