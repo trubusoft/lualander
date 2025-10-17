@@ -8,6 +8,7 @@ public class LandedUI : MonoBehaviour {
     [SerializeField] TextMeshProUGUI statsTextMesh;
     [SerializeField] TextMeshProUGUI nextButtonTextMesh;
     [SerializeField] Button nextButton;
+    private GameManager _gameManager;
 
     private Lander _lander;
 
@@ -15,6 +16,7 @@ public class LandedUI : MonoBehaviour {
 
     private void Awake() {
         _lander = GetComponentInParent<Lander>();
+        _gameManager = GetComponentInParent<GameManager>();
 
         nextButton.onClick.AddListener(() => { _nextButtonAction(); });
     }
@@ -29,22 +31,22 @@ public class LandedUI : MonoBehaviour {
             case Lander.LandingStatus.Success:
                 titleTextMesh.text = "Successful Landing";
                 nextButtonTextMesh.text = "Next Level";
-                _nextButtonAction = GameManager.instance.GoToNextLevel;
+                _nextButtonAction = _gameManager.GoToNextLevel;
                 break;
             case Lander.LandingStatus.LandedTooFast:
                 titleTextMesh.text = "Landed too Fast";
                 nextButtonTextMesh.text = "Retry";
-                _nextButtonAction = GameManager.instance.RetryLevel;
+                _nextButtonAction = _gameManager.RetryLevel;
                 break;
             case Lander.LandingStatus.LandedTooSteep:
                 titleTextMesh.text = "Landed too Steep";
                 nextButtonTextMesh.text = "Retry";
-                _nextButtonAction = GameManager.instance.RetryLevel;
+                _nextButtonAction = _gameManager.RetryLevel;
                 break;
             case Lander.LandingStatus.LandedOnTerrain:
                 titleTextMesh.text = "Crashed";
                 nextButtonTextMesh.text = "Retry";
-                _nextButtonAction = GameManager.instance.RetryLevel;
+                _nextButtonAction = _gameManager.RetryLevel;
                 break;
         }
 
