@@ -379,6 +379,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1894427874440004837}
+  - component: {fileID: 7537473407983432286}
   m_Layer: 0
   m_Name: LandedUI
   m_TagString: Untagged
@@ -403,6 +404,22 @@ Transform:
   - {fileID: 409325007955070429}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7537473407983432286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3255326267172149687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e34fdeb67e1b941a3dc69abc248a5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LandedUI
+  titleTextMesh: {fileID: 71360822150382921}
+  statsTextMesh: {fileID: 4522181098666666586}
+  nextButtonTextMesh: {fileID: 8303786611951395896}
+  nextButton: {fileID: 427867072112819699}
 --- !u!1 &5203496234759690047
 GameObject:
   m_ObjectHideFlags: 0
