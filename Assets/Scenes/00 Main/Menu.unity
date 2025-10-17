@@ -965,6 +965,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Menu
   playButton: {fileID: 596623739}
   quitButton: {fileID: 1279976426}
+  firstLevel: 1
 --- !u!1 &1484152326
 GameObject:
   m_ObjectHideFlags: 0
