@@ -9,4 +9,8 @@ public class Menu : MonoBehaviour {
         playButton.onClick.AddListener(() => { SceneLoader.LoadScene(SceneLoader.Scene.Game); });
         quitButton.onClick.AddListener(Application.Quit);
     }
+
+    private void Start() {
+        SessionManager.instance.Reset();
+    }
 }
