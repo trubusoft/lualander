@@ -8,7 +8,6 @@ public class LandedUI : MonoBehaviour {
     [SerializeField] TextMeshProUGUI statsTextMesh;
     [SerializeField] TextMeshProUGUI nextButtonTextMesh;
     [SerializeField] Button nextButton;
-    private GameManager _gameManager;
 
     private Lander _lander;
     private LevelManager _levelManager;
