@@ -19,13 +19,13 @@ public class StatsUI : MonoBehaviour {
     private GameObject speedDownArrowGameObject;
 
     [SerializeField] private Image fuelImage;
-    private GameManager _gameManager;
 
     private Lander _lander;
+    private LevelManager _levelManager;
 
     private void Awake() {
         _lander = GetComponentInParent<Lander>();
-        _gameManager = GetComponentInParent<GameManager>();
+        _levelManager = GetComponentInParent<LevelManager>();
     }
 
     private void Update() {
@@ -35,9 +35,9 @@ public class StatsUI : MonoBehaviour {
     }
 
     private void UpdateStatsTextMesh() {
-        int levelNumber = _gameManager.GetLevelNumber();
-        int score = _gameManager.GetScore();
-        float time = Mathf.Round(_gameManager.GetTime());
+        int levelNumber = _levelManager.GetLevelNumber();
+        int score = _levelManager.GetScore();
+        float time = Mathf.Round(_levelManager.GetTime());
         float speedX = Mathf.Abs(Mathf.Round(_lander.GetSpeedX() * 10f));
         float speedY = Mathf.Abs(Mathf.Round(_lander.GetSpeedY() * 10f));
         string finalString = $"{levelNumber}\n" +
