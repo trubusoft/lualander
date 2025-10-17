@@ -1,11 +1,29 @@
 using UnityEngine;
 
 public class SessionManager : MonoBehaviour {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start() {
+    private static int _levelNumber = 1;
+    private static int _totalScore = 0;
+
+    public static SessionManager instance { get; private set; }
+
+    private void Awake() {
+        InitializeSingleton();
     }
 
-    // Update is called once per frame
-    void Update() {
+    public void Reset() {
+        _levelNumber = 1;
+    }
+
+    private void InitializeSingleton() {
+        if (instance != null && instance != this) {
+            Destroy(this);
+        } else {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
+    public void AddScore(int score) {
+        _totalScore += score;
     }
 }
