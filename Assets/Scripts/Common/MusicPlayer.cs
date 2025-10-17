@@ -1,6 +1,15 @@
 using UnityEngine;
 
-public class MusicManager : MonoBehaviour {
+/// <summary>
+/// <para>
+/// This class plays the background music inter-scene.
+/// </para>
+/// <para>
+/// Current played time is saved as a static <see cref="_musicTime"/>
+/// and will persist across scene, so music will continue. 
+/// </para>
+/// </summary>
+public class MusicPlayer : MonoBehaviour {
     private static float _musicTime;
     private AudioSource _musicAudioSource;
 
