@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -21,13 +20,10 @@ public class StatsUI : MonoBehaviour {
 
     [SerializeField] private Image fuelImage;
 
+    private Lander _lander;
+
     private void Awake() {
-        Assert.IsNotNull(statsTextMeshUGUI);
-        Assert.IsNotNull(speedLeftArrowGameObject);
-        Assert.IsNotNull(speedRightArrowGameObject);
-        Assert.IsNotNull(speedUpArrowGameObject);
-        Assert.IsNotNull(speedDownArrowGameObject);
-        Assert.IsNotNull(fuelImage);
+        _lander = GetComponentInParent<Lander>();
     }
 
     private void Update() {
@@ -40,8 +36,8 @@ public class StatsUI : MonoBehaviour {
         int levelNumber = GameManager.instance.GetLevelNumber();
         int score = GameManager.instance.GetScore();
         float time = Mathf.Round(GameManager.instance.GetTime());
-        float speedX = Mathf.Abs(Mathf.Round(Lander.instance.GetSpeedX() * 10f));
-        float speedY = Mathf.Abs(Mathf.Round(Lander.instance.GetSpeedY() * 10f));
+        float speedX = Mathf.Abs(Mathf.Round(_lander.GetSpeedX() * 10f));
+        float speedY = Mathf.Abs(Mathf.Round(_lander.GetSpeedY() * 10f));
         string finalString = $"{levelNumber}\n" +
                              $"{score}\n" +
                              $"{time}\n" +
@@ -51,13 +47,13 @@ public class StatsUI : MonoBehaviour {
     }
 
     private void UpdateDirectionArrow() {
-        speedUpArrowGameObject.SetActive(Lander.instance.GetSpeedY() > 0.01f);
-        speedDownArrowGameObject.SetActive(Lander.instance.GetSpeedY() < -0.01f);
-        speedRightArrowGameObject.SetActive(Lander.instance.GetSpeedX() > 0.01f);
-        speedLeftArrowGameObject.SetActive(Lander.instance.GetSpeedX() < -0.01f);
+        speedUpArrowGameObject.SetActive(_lander.GetSpeedY() > 0.01f);
+        speedDownArrowGameObject.SetActive(_lander.GetSpeedY() < -0.01f);
+        speedRightArrowGameObject.SetActive(_lander.GetSpeedX() > 0.01f);
+        speedLeftArrowGameObject.SetActive(_lander.GetSpeedX() < -0.01f);
     }
 
     private void UpdateFuelBarImage() {
-        fuelImage.fillAmount = Lander.instance.GetFuelNormalized();
+        fuelImage.fillAmount = _lander.GetFuelNormalized();
     }
 }
