@@ -23,7 +23,7 @@ public class SessionManager : MonoBehaviour {
         }
     }
 
-    public void AddScore(int score) {
+    public void AddTotalScore(int score) {
         _totalScore += score;
     }
 }
