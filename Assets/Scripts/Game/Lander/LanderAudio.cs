@@ -7,22 +7,19 @@ public class LanderAudio : MonoBehaviour {
     [SerializeField] private AudioClip crashAudioClip;
     [SerializeField] private AudioClip landingSuccessAudioClip;
 
-    private AudioSource _asd;
-
     private Lander _lander;
 
     private void Awake() {
         _lander = GetComponent<Lander>();
+        PauseThrusterSound();
     }
 
     void Start() {
         _lander.OnIdle += LanderOnIdle;
-        _lander.OnUpForce += LanderOnUpForce;
-        _lander.OnLeftForce += LanderOnLeftForce;
-        _lander.OnRightForce += LanderOnRightForce;
+        _lander.OnUpForce += LanderOnMove;
+        _lander.OnLeftForce += LanderOnMove;
+        _lander.OnRightForce += LanderOnMove;
         _lander.OnLanding += LanderOnLanding;
-
-        thrusterAudioSource.Pause();
     }
 
     private void LanderOnLanding(object sender, Lander.OnLandingArgs e) {
@@ -39,25 +36,21 @@ public class LanderAudio : MonoBehaviour {
         }
     }
 
-    private void LanderOnRightForce(object sender, EventArgs e) {
+    private void PlayThrusterSound() {
         if (!thrusterAudioSource.isPlaying) {
             thrusterAudioSource.Play();
         }
     }
 
-    private void LanderOnLeftForce(object sender, EventArgs e) {
-        if (!thrusterAudioSource.isPlaying) {
-            thrusterAudioSource.Play();
-        }
+    private void PauseThrusterSound() {
+        thrusterAudioSource.Pause();
     }
 
-    private void LanderOnUpForce(object sender, EventArgs e) {
-        if (!thrusterAudioSource.isPlaying) {
-            thrusterAudioSource.Play();
-        }
+    private void LanderOnMove(object sender, EventArgs e) {
+        PlayThrusterSound();
     }
 
     private void LanderOnIdle(object sender, EventArgs e) {
-        thrusterAudioSource.Pause();
+        PauseThrusterSound();
     }
 }
