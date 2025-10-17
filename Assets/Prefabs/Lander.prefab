@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 934563171794520325}
   - component: {fileID: 1562822197185350596}
   - component: {fileID: 6594166449381319846}
+  - component: {fileID: 8317240535258149880}
   m_Layer: 0
   m_Name: Lander
   m_TagString: Untagged
@@ -152,6 +153,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LanderAudio
   thrusterAudioSource: {fileID: 497628355795337853}
+  sadTromboneAudioClip: {fileID: 0}
+  crashAudioClip: {fileID: 0}
+  landingSuccessAudioClip: {fileID: 0}
+--- !u!114 &8317240535258149880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2566403898075136042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5241ab6a1b6e4a52a6f6f20ee66cf32a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LanderInput
 --- !u!1 &5953700241674072431
 GameObject:
   m_ObjectHideFlags: 0
