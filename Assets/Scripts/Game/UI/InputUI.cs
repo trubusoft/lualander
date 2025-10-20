@@ -1,17 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
 
-public class FuelUI : MonoBehaviour {
-    [SerializeField] private Image fuelBarImage;
+public class InputUI : MonoBehaviour {
     private Lander _lander;
 
-    private void Start() {
+    void Start() {
         _lander = FindAnyObjectByType<Lander>();
         _lander.OnStateChanged += LanderOnStateChanged;
-    }
-
-    private void Update() {
-        HandleFuelBarUpdate();
     }
 
     private void LanderOnStateChanged(object sender, Lander.OnStateChangedArgs e) {
@@ -20,9 +14,5 @@ public class FuelUI : MonoBehaviour {
                 gameObject.SetActive(false);
                 break;
         }
-    }
-
-    private void HandleFuelBarUpdate() {
-        fuelBarImage.fillAmount = _lander.GetFuelNormalized();
     }
 }

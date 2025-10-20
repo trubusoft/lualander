@@ -1,9 +1,8 @@
 using System;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 public class Lander : MonoBehaviour {
-    public enum LandingType {
+    public enum LandingStatus {
         Success,
         LandedOnTerrain,
         LandedTooSteep,
@@ -26,23 +25,26 @@ public class Lander : MonoBehaviour {
     private const float FuelPickupAmount = 10f;
     private const float FuelConsumptionRate = 1f;
     private float _fuelAmount;
+
+    private LanderInput _landerInput;
     private Rigidbody2D _rigidbody2D;
     private State _state;
-    public static Lander instance { get; private set; }
 
     private void Awake() {
-        AssignSingleton();
-        AssignRigidBody();
-        AssignEventCallback();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _landerInput = GetComponent<LanderInput>();
+    }
+
+    private void Start() {
         SetState(State.Ready);
     }
 
     private void FixedUpdate() {
         HandleIdle();
 
-        bool isUpAction = Input.instance.IsLanderUp();
-        bool isLeftAction = Input.instance.IsLanderLeft();
-        bool isRightAction = Input.instance.IsLanderRight();
+        bool isUpAction = _landerInput.IsThrusting();
+        bool isLeftAction = _landerInput.IsRotatingLeft();
+        bool isRightAction = _landerInput.IsRotatingRight();
         bool isActionSupplied = isUpAction || isLeftAction || isRightAction;
 
         switch (_state) {
@@ -65,6 +67,10 @@ public class Lander : MonoBehaviour {
         }
     }
 
+    private void OnDestroy() {
+        _landerInput.DisableInput();
+    }
+
     private void OnCollisionEnter2D(Collision2D otherCollision2D) {
         HandleTerrainCollision(otherCollision2D);
         HandleLandingPadCollision(otherCollision2D);
@@ -75,24 +81,12 @@ public class Lander : MonoBehaviour {
         HandleCoinCollision(otherCollider2D);
     }
 
-    private void AssignSingleton() {
-        instance = this;
-    }
-
-    private void AssignRigidBody() {
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        Assert.IsNotNull(_rigidbody2D);
-    }
-
-    private void AssignEventCallback() {
-        OnStateChanged += HandleOnStateChanged;
-    }
-
-    private void HandleOnStateChanged(object sender, OnStateChangedArgs e) {
+    private void HandleStateChange() {
         switch (_state) {
             case State.Ready:
                 _fuelAmount = FuelStartingAmount;
                 _rigidbody2D.gravityScale = GravityDisabled;
+                _landerInput.EnableInput();
                 break;
             case State.Playing:
                 _rigidbody2D.gravityScale = GravityNormal;
@@ -100,6 +94,7 @@ public class Lander : MonoBehaviour {
             case State.GameOver:
                 _rigidbody2D.gravityScale = GravityNormal;
                 _rigidbody2D.gravityScale = GravityDisabled;
+                _landerInput.DisableInput();
                 break;
         }
     }
@@ -122,12 +117,12 @@ public class Lander : MonoBehaviour {
 
             if (isWinConditionMet) {
                 int finalScore = CalculateScore(landingSpeed, landingAngle, landingPad.GetScoreMultiplier());
-                onLandingArgs.LandingType = LandingType.Success;
+                onLandingArgs.LandingStatus = LandingStatus.Success;
                 onLandingArgs.Score = finalScore;
             } else if (!isLandingSpeedValid) {
-                onLandingArgs.LandingType = LandingType.LandedTooFast;
+                onLandingArgs.LandingStatus = LandingStatus.LandedTooFast;
             } else if (!isLandingAngleValid) {
-                onLandingArgs.LandingType = LandingType.LandedTooSteep;
+                onLandingArgs.LandingStatus = LandingStatus.LandedTooSteep;
             }
 
             OnLanding?.Invoke(this, onLandingArgs);
@@ -141,7 +136,7 @@ public class Lander : MonoBehaviour {
             float landingAngle = CalculateLandingAngle();
 
             OnLanding?.Invoke(this, new OnLandingArgs {
-                LandingType = LandingType.LandedOnTerrain,
+                LandingStatus = LandingStatus.LandedOnTerrain,
                 LandingSpeed = landingSpeed,
                 LandingAngle = landingAngle,
                 ScoreMultiplier = 0,
@@ -187,6 +182,7 @@ public class Lander : MonoBehaviour {
 
     private void SetState(State state) {
         _state = state;
+        HandleStateChange();
         OnStateChanged?.Invoke(this, new OnStateChangedArgs { State = state });
     }
 
@@ -215,21 +211,21 @@ public class Lander : MonoBehaviour {
     }
 
     private void HandleUpwardThrust() {
-        if (Input.instance.IsLanderUp()) {
+        if (_landerInput.IsThrusting()) {
             _rigidbody2D.AddForce(transform.up * (ThrustSpeed * Time.deltaTime), ForceMode2D.Force);
             OnUpForce?.Invoke(this, EventArgs.Empty);
         }
     }
 
     private void HandleLeftRotation() {
-        if (Input.instance.IsLanderLeft()) {
+        if (_landerInput.IsRotatingLeft()) {
             _rigidbody2D.AddTorque(TorqueSpeed * Time.deltaTime);
             OnLeftForce?.Invoke(this, EventArgs.Empty);
         }
     }
 
     private void HandleRightRotation() {
-        if (Input.instance.IsLanderRight()) {
+        if (_landerInput.IsRotatingRight()) {
             _rigidbody2D.AddTorque(-TorqueSpeed * Time.deltaTime);
             OnRightForce?.Invoke(this, EventArgs.Empty);
         }
@@ -258,7 +254,7 @@ public class Lander : MonoBehaviour {
     public class OnLandingArgs : EventArgs {
         public float LandingAngle;
         public float LandingSpeed;
-        public LandingType LandingType;
+        public LandingStatus LandingStatus;
         public int Score;
         public float ScoreMultiplier;
     }
