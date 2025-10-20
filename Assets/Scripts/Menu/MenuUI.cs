@@ -10,8 +10,4 @@ public class Menu : MonoBehaviour {
         playButton.onClick.AddListener(() => { SceneLoader.LoadScene(firstLevel); });
         quitButton.onClick.AddListener(Application.Quit);
     }
-
-    private void Start() {
-        SessionManager.instance.Reset();
-    }
 }

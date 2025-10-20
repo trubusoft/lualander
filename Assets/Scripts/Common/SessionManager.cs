@@ -1,17 +1,12 @@
 using UnityEngine;
 
 public class SessionManager : MonoBehaviour {
-    private static int _levelNumber = 1;
-    private static int _totalScore = 0;
+    private static int _totalScore;
 
     public static SessionManager instance { get; private set; }
 
     private void Awake() {
         InitializeSingleton();
-    }
-
-    public void Reset() {
-        _levelNumber = 1;
     }
 
     private void InitializeSingleton() {
