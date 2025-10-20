@@ -26,7 +26,7 @@ public class LandedUI : MonoBehaviour {
         switch (e.LandingStatus) {
             case Lander.LandingStatus.Success:
                 titleTextMesh.text = "Successful Landing";
-                nextButtonTextMesh.text = "Next Level";
+                nextButtonTextMesh.text = "Continue";
                 _nextButtonAction = _levelManager.GoToNextLevel;
                 break;
             case Lander.LandingStatus.LandedTooFast:
