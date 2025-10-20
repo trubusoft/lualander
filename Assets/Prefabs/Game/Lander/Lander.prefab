@@ -153,9 +153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LanderAudio
   thrusterAudioSource: {fileID: 497628355795337853}
-  sadTromboneAudioClip: {fileID: 0}
-  crashAudioClip: {fileID: 0}
-  landingSuccessAudioClip: {fileID: 0}
+  sadTromboneAudioClip: {fileID: 8300000, guid: 01befbcde996789459e5468713dae303, type: 3}
+  crashAudioClip: {fileID: 8300000, guid: 4c9f9d63f11fa4d4ca1c537cd058256d, type: 3}
+  landingSuccessAudioClip: {fileID: 8300000, guid: 6d68f74438f613b45b2181d4e917474c, type: 3}
 --- !u!114 &8317240535258149880
 MonoBehaviour:
   m_ObjectHideFlags: 0
