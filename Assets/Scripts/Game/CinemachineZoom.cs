@@ -1,7 +1,7 @@
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class CinemachineTracker : MonoBehaviour {
+public class CinemachineZoom : MonoBehaviour {
     private const float NormalOrthographicSize = 12f;
     private const float ZoomSpeed = 1f;
 
