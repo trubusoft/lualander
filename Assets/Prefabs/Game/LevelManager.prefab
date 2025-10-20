@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1741281329717191712}
   - component: {fileID: 1576438698543466870}
+  - component: {fileID: 6557549651050436860}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -47,3 +48,18 @@ MonoBehaviour:
   levelNumber: 1
   currentScene: 1
   nextScene: 2
+  landedUIGameObject: {fileID: 0}
+  statsUIGameObject: {fileID: 0}
+  landerGameObject: {fileID: 0}
+--- !u!114 &6557549651050436860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720454116786179314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5c3162bf1018604d9089aca0a824bad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SessionManager
