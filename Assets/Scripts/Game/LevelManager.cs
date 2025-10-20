@@ -6,10 +6,8 @@ public class LevelManager : MonoBehaviour {
     private const int CoinPickupScore = 100;
     [SerializeField] private int levelNumber;
     [SerializeField] private Scene currentScene;
+
     [SerializeField] private Scene nextScene;
-    [SerializeField] private GameObject landedUIGameObject;
-    [SerializeField] private GameObject statsUIGameObject;
-    [SerializeField] private GameObject landerGameObject;
 
     private bool _isLevelTimerActive;
     private LandedUI _landedUI;
@@ -20,9 +18,9 @@ public class LevelManager : MonoBehaviour {
     private StatsUI _statsUI;
 
     private void Start() {
-        _lander = landerGameObject.GetComponent<Lander>();
-        _landedUI = landedUIGameObject.GetComponent<LandedUI>();
-        _statsUI = statsUIGameObject.GetComponent<StatsUI>();
+        _lander = FindAnyObjectByType<Lander>();
+        _landedUI = FindAnyObjectByType<LandedUI>(FindObjectsInactive.Include);
+        _statsUI = FindAnyObjectByType<StatsUI>(FindObjectsInactive.Include);
 
         Assert.IsNotNull(_lander);
         Assert.IsNotNull(_landedUI);
