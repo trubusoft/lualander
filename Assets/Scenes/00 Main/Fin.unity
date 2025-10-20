@@ -950,12 +950,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1313009180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 100b1680e2d27b149b194c81dfcf696f, type: 3}
+  m_Script: {fileID: 11500000, guid: 026a873553e41c54e93529a0f09f2a2c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Menu
-  playButton: {fileID: 0}
-  quitButton: {fileID: 1279976426}
-  firstLevel: 1
+  m_EditorClassIdentifier: Assembly-CSharp::FinUI
 --- !u!1 &1484152326
 GameObject:
   m_ObjectHideFlags: 0
