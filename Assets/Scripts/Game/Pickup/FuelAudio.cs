@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class FuelAudio : MonoBehaviour {
     [SerializeField] private AudioClip fuelPickupAudioClip;
@@ -7,7 +8,9 @@ public class FuelAudio : MonoBehaviour {
     private Lander _lander;
 
     void Start() {
-        _lander = GetComponent<Lander>();
+        _lander = FindAnyObjectByType<Lander>();
+        Assert.IsNotNull(_lander);
+
         _lander.OnFuelPickup += LanderOnFuelPickup;
     }
 

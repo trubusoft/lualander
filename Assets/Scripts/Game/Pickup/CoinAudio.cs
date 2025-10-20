@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class CoinAudio : MonoBehaviour {
     [SerializeField] private AudioClip coinPickupAudioClip;
@@ -7,7 +8,9 @@ public class CoinAudio : MonoBehaviour {
     private Lander _lander;
 
     void Start() {
-        _lander = GetComponent<Lander>();
+        _lander = FindAnyObjectByType<Lander>();
+        Assert.IsNotNull(_lander);
+
         _lander.OnCoinPickup += LanderOnCoinPickup;
     }
 
