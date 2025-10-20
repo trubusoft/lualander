@@ -14,15 +14,12 @@ public class LandedUI : MonoBehaviour {
 
     private Action _nextButtonAction;
 
-    private void Awake() {
-        _levelManager = GetComponentInParent<LevelManager>();
+    public void SetUp(LevelManager levelManager, Lander lander) {
         nextButton.onClick.AddListener(() => { _nextButtonAction(); });
-    }
 
-    private void Start() {
-        _lander = GetComponentInParent<Lander>();
+        _levelManager = levelManager;
+        _lander = lander;
         _lander.OnLanding += LanderOnLanding;
-        Hide();
     }
 
     private void LanderOnLanding(object sender, Lander.OnLandingArgs e) {
@@ -56,14 +53,8 @@ public class LandedUI : MonoBehaviour {
                              $"{landingAngle}\n" +
                              $"x{e.ScoreMultiplier}\n" +
                              $"{e.Score}";
-        Show();
-    }
 
-    private void Hide() {
-        gameObject.SetActive(false);
-    }
-
-    private void Show() {
+        // show UI
         gameObject.SetActive(true);
     }
 }

@@ -31,6 +31,8 @@ public class LevelManager : MonoBehaviour {
         _lander.OnCoinPickup += LanderCoinPickup;
         _lander.OnLanding += LanderOnLanding;
         _lander.OnStateChanged += LanderOnStateChanged;
+
+        _landedUI.SetUp(this, _lander);
     }
 
     private void Update() {
@@ -66,8 +68,6 @@ public class LevelManager : MonoBehaviour {
                 break;
             case Lander.State.Playing:
                 _isLevelTimerActive = true;
-                // cinemachineCamera.Target.TrackingTarget = Lander.instance.transform;
-                // CinemachineCameraZoom.instance.ResetOrthographicSize();
                 break;
             case Lander.State.GameOver:
                 _isLevelTimerActive = false;
