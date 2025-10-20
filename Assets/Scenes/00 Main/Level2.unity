@@ -3132,6 +3132,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1484597018}
     - target: {fileID: 1576438698543466870, guid: 2273c42a33ea32d4292d5a474856761a, type: 3}
+      propertyPath: nextScene
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1576438698543466870, guid: 2273c42a33ea32d4292d5a474856761a, type: 3}
+      propertyPath: levelNumber
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1576438698543466870, guid: 2273c42a33ea32d4292d5a474856761a, type: 3}
+      propertyPath: currentScene
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1576438698543466870, guid: 2273c42a33ea32d4292d5a474856761a, type: 3}
       propertyPath: landerGameObject
       value: 
       objectReference: {fileID: 1915463710}
