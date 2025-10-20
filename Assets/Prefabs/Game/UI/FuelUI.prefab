@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8314c06c8d3144a8553d3ddd9822af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FuelUI
-  fuelBar: {fileID: 0}
+  fuelBarImage: {fileID: 7026758743108249356}
 --- !u!1 &4775419151252522062
 GameObject:
   m_ObjectHideFlags: 0
