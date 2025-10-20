@@ -4,7 +4,10 @@ public enum Scene {
     Menu,
     Level1,
     Level2,
-    Game
+    Level3,
+    Level4,
+    Level5,
+    Fin,
 }
 
 public static class SceneLoader {
